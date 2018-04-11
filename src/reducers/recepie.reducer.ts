@@ -6,31 +6,24 @@ import { AppState } from '../services/state';
 
 export type Action = RecepieActions.All;
 
-let model:AppState;
-
-model = {
+let initialState:AppState = {
     recepies:[],
     selectedRecepie: undefined
 }
 
-export function RecepieReducer(state = model, action) {
- 
-    let stateObj = Object.assign({}, state);
-    // console.log(stateObj)
+export function RecepieReducer(state:any = initialState, action) {
+
     switch (action.type) {
         case RecepieActions.ADD_RECEPIE:
-            stateObj.recepies = [...state.recepies, ...action.payload]
-            break
+            return {...state, recepies: [...state.recepies, ...action.payload]};
         
         case RecepieActions.INITIAL:
-            stateObj.recepies = [...stateObj.recepies, ...action.payload]
-            break;
+            return {...state, recepies: [...state.recepies, ...action.payload]};
 
         case RecepieActions.SET_SELECTED:
-            // console.log( action.payload)
-            break;
+            return state
+        default:
+            return state
     }
 
-    // console.log(stateObj)
-     return stateObj;
 }

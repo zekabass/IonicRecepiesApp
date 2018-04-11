@@ -14,7 +14,7 @@ import { Recepie } from '../../models/recepieModel';
 import { Store } from "@ngrx/store";
 import * as RecepieActions from "../../actions/recepie.actions";
 import { AppState } from '../../services/state';  
-import { Observable } from "rxjs/Observable";
+import { Subscription } from "rxjs";
 
 enum Categories {
 	Dessert ,
@@ -33,8 +33,7 @@ export class HomePage {
 	shouldShowCancel:boolean = false;
 	searchText:string;
 
-	public recepies: Recepie[];
-	public state$: Observable<AppState>;
+	private stateSubscription:Subscription;
 	public categories = Categories;
 
 	constructor(	
@@ -42,9 +41,10 @@ export class HomePage {
 		public http: Http,  
 		private store: Store<AppState>, 
 	) {
-		this.state$ = this.store.select(state => state);
-		
-		// this.store.select(state => state).subscribe(data => console.log(data))
+		this.stateSubscription = this.store.select('state').subscribe(userState => {
+
+		});
+
 	}
 
 	ngOnInit() {

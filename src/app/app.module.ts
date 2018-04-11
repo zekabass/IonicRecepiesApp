@@ -26,7 +26,7 @@ import { RecepieReducer } from '../reducers/recepie.reducer';
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    StoreModule.forRoot({ recepies: RecepieReducer })
+    StoreModule.forRoot({ appState: RecepieReducer })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

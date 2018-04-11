@@ -81,8 +81,8 @@ var HomePage = /** @class */ (function () {
         this.store = store;
         this.shouldShowCancel = false;
         this.categories = Categories;
-        this.state$ = this.store.select(function (state) { return state; });
-        // this.store.select(state => state).subscribe(data => console.log(data))
+        this.stateSubscription = this.store.select('state').subscribe(function (userState) {
+        });
     }
     HomePage.prototype.ngOnInit = function () {
         this.getRecepies();
@@ -123,7 +123,7 @@ var HomePage = /** @class */ (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Recepies App\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content class="card-background-page" padding>\n	<ion-fab class="add-new-btn" right bottom #fab1>\n		<button ion-fab (click)="changePage(\'add-recepie\')" ><ion-icon name="add"></ion-icon></button>	\n	</ion-fab>\n\n	<ion-searchbar\n		[(ngModel)]="myInput"\n		[showCancelButton]="shouldShowCancel"\n		(ionInput)="onInput($event)"\n		(ionCancel)="onCancel($event)">\n	</ion-searchbar>\n\n	<ion-card *ngFor="let recepie of recepies | async">\n		<div class="card-wrapper" [style.backgroundImage]="\'url(\' + recepie.imageUrl + \')\'">\n\n			<div class="background-over" ></div>\n\n			<ion-chip color="secondary">\n				<ion-label color="dark">{{categories[recepie.category]}}</ion-label>\n			</ion-chip>\n\n			<div class="card-title clickable" (click)="changePage(\'recepie-view\')">{{recepie.title}}</div>\n\n			\n			<ion-fab left bottom #fabDelete>\n					<button ion-fab color="danger" mini><ion-icon class="delete-icon clickable" name="ios-trash-outline"></ion-icon></button>	\n			</ion-fab>\n		</div>	\n	</ion-card>\n\n</ion-content>\n'/*ion-inline-end:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Recepies App\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="card-background-page" padding>\n\n	<ion-fab class="add-new-btn" right bottom #fab1>\n\n		<button ion-fab (click)="changePage(\'add-recepie\')" ><ion-icon name="add"></ion-icon></button>	\n\n	</ion-fab>\n\n\n\n	<ion-searchbar\n\n		[(ngModel)]="myInput"\n\n		[showCancelButton]="shouldShowCancel"\n\n		(ionInput)="onInput($event)"\n\n		(ionCancel)="onCancel($event)">\n\n	</ion-searchbar>\n\n\n\n	<ion-card *ngFor="let recepie of recepies | async">\n\n		<div class="card-wrapper" [style.backgroundImage]="\'url(\' + recepie.imageUrl + \')\'">\n\n\n\n			<div class="background-over" ></div>\n\n\n\n			<ion-chip color="secondary">\n\n				<ion-label color="dark">{{categories[recepie.category]}}</ion-label>\n\n			</ion-chip>\n\n\n\n			<div class="card-title clickable" (click)="changePage(\'recepie-view\')">{{recepie.title}}</div>\n\n\n\n			\n\n			<ion-fab left bottom #fabDelete>\n\n					<button ion-fab color="danger" mini><ion-icon class="delete-icon clickable" name="ios-trash-outline"></ion-icon></button>	\n\n			</ion-fab>\n\n		</div>	\n\n	</ion-card>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\home\home.html"*/
         }),
         __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_7__ngrx_store__["a" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ngrx_store__["a" /* Store */]) === "function" && _c || Object])
     ], HomePage);
@@ -159,7 +159,7 @@ var RecepieView = /** @class */ (function () {
     }
     RecepieView = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'recepie-view',template:/*ion-inline-start:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/recepie/recepie.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Recepies App\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n	<h1>Test Article</h1>	\n	\n	<p>Recommended:</p>\n	\n	<ion-slides>\n		<ion-slide>\n			<h1>Slide 1</h1>\n		</ion-slide>\n		<ion-slide>\n			<h1>Slide 2</h1>\n		</ion-slide>\n		<ion-slide>\n			<h1>Slide 3</h1>\n		</ion-slide>\n	</ion-slides>\n</ion-content>\n'/*ion-inline-end:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/recepie/recepie.html"*/
+            selector: 'recepie-view',template:/*ion-inline-start:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\recepie\recepie.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Recepies App\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n	<h1>Test Article</h1>	\n\n	\n\n	<p>Recommended:</p>\n\n	\n\n	<ion-slides>\n\n		<ion-slide>\n\n			<h1>Slide 1</h1>\n\n		</ion-slide>\n\n		<ion-slide>\n\n			<h1>Slide 2</h1>\n\n		</ion-slide>\n\n		<ion-slide>\n\n			<h1>Slide 3</h1>\n\n		</ion-slide>\n\n	</ion-slides>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\recepie\recepie.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]])
     ], RecepieView);
@@ -194,7 +194,7 @@ var AddRecepie = /** @class */ (function () {
     }
     AddRecepie = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'add-recepie',template:/*ion-inline-start:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/addRecepie/add.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Recepies App\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n	<h1>Add new Recepie</h1>		\n  \n</ion-content>\n'/*ion-inline-end:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/addRecepie/add.html"*/
+            selector: 'add-recepie',template:/*ion-inline-start:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\addRecepie\add.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Recepies App\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n	<h1>Add new Recepie</h1>		\n\n  \n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\addRecepie\add.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]])
     ], AddRecepie);
@@ -312,7 +312,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* MyApp */], {}, {
                     links: []
                 }),
-                __WEBPACK_IMPORTED_MODULE_10__ngrx_store__["b" /* StoreModule */].forRoot({ recepies: __WEBPACK_IMPORTED_MODULE_11__reducers_recepie_reducer__["a" /* RecepieReducer */] })
+                __WEBPACK_IMPORTED_MODULE_10__ngrx_store__["b" /* StoreModule */].forRoot({ appState: __WEBPACK_IMPORTED_MODULE_11__reducers_recepie_reducer__["a" /* RecepieReducer */] })
             ],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* IonicApp */]],
             entryComponents: [
@@ -370,7 +370,7 @@ var MyApp = /** @class */ (function () {
         });
     }
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/app/app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\app\app.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
     ], MyApp);
@@ -387,29 +387,31 @@ var MyApp = /** @class */ (function () {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = RecepieReducer;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_recepie_actions__ = __webpack_require__(204);
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 
-var model;
-model = {
+var initialState = {
     recepies: [],
     selectedRecepie: undefined
 };
 function RecepieReducer(state, action) {
-    if (state === void 0) { state = model; }
-    var stateObj = Object.assign({}, state);
-    // console.log(stateObj)
+    if (state === void 0) { state = initialState; }
     switch (action.type) {
         case __WEBPACK_IMPORTED_MODULE_0__actions_recepie_actions__["a" /* ADD_RECEPIE */]:
-            stateObj.recepies = state.recepies.concat(action.payload);
-            break;
+            return __assign({}, state, { recepies: state.recepies.concat(action.payload) });
         case __WEBPACK_IMPORTED_MODULE_0__actions_recepie_actions__["b" /* INITIAL */]:
-            stateObj.recepies = stateObj.recepies.concat(action.payload);
-            break;
+            return __assign({}, state, { recepies: state.recepies.concat(action.payload) });
         case __WEBPACK_IMPORTED_MODULE_0__actions_recepie_actions__["d" /* SET_SELECTED */]:
-            // console.log( action.payload)
-            break;
+            return state;
+        default:
+            return state;
     }
-    // console.log(stateObj)
-    return stateObj;
 }
 //# sourceMappingURL=recepie.reducer.js.map
 
