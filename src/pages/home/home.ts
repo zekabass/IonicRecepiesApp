@@ -8,6 +8,14 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/timeout';
 
+
+import { Recepie } from '../../models/recepieModel';
+
+import { Store } from "@ngrx/store";
+import * as RecepieActions from "../../actions/recepie.actions";
+import { AppState } from '../../services/state';  
+import { Observable } from "rxjs/Observable";
+
 enum Categories {
 	Dessert ,
 	Lunch ,
@@ -22,14 +30,21 @@ enum Categories {
 
 export class HomePage {
 
-	recepies:any = [];
 	shouldShowCancel:boolean = false;
 	searchText:string;
 
+	public recepies: Recepie[];
+	public state$: Observable<AppState>;
 	public categories = Categories;
 
-	constructor(public navCtrl: NavController, public http: Http) {
-
+	constructor(	
+		public navCtrl: NavController, 
+		public http: Http,  
+		private store: Store<AppState>, 
+	) {
+		this.state$ = this.store.select(state => state);
+		
+		// this.store.select(state => state).subscribe(data => console.log(data))
 	}
 
 	ngOnInit() {
@@ -45,11 +60,12 @@ export class HomePage {
 			.timeout(timeoutMS)
 			.map(res => res.json()).subscribe(data => {
 				let responseData = data;
-				console.log(responseData);
-				this.recepies = responseData.receipts;
+
+				this.store.dispatch(new RecepieActions.InitialData(responseData.receipts));
+				
 			},
 			err => {
-				console.log('error in ETPhoneHome');
+				console.log('error fetching data');
 			});
 	}
 
@@ -65,13 +81,17 @@ export class HomePage {
 
 	}
 
-	changePage(page){
+	changePage(page, data){
 		switch(page) {
 			case 'recepie-view':
+				this.store.dispatch(new RecepieActions.setSelected(data));
 				this.navCtrl.push(RecepieView)
 				break;
 			case 'add-recepie':
 				this.navCtrl.push(AddRecepie)
+				// let test
+				// this.recepies$.subscribe(data => test = data)
+				// this.store.dispatch(new RecepieActions.AddRecepie(test[0]))
 				break;
 		}	
 	}

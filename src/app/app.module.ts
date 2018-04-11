@@ -11,6 +11,10 @@ import { HomePage } from '../pages/home/home';
 import { RecepieView } from '../pages/recepie/recepie';
 import { AddRecepie } from '../pages/addRecepie/add';
 
+import { StoreModule } from '@ngrx/store';
+import { RecepieReducer } from '../reducers/recepie.reducer';
+
+
 @NgModule({
   declarations: [
     MyApp,
@@ -21,7 +25,8 @@ import { AddRecepie } from '../pages/addRecepie/add';
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    StoreModule.forRoot({ recepies: RecepieReducer })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -33,7 +38,7 @@ import { AddRecepie } from '../pages/addRecepie/add';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })
 export class AppModule {}

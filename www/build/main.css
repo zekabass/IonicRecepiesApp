@@ -25720,16 +25720,12 @@ ion-navbar.toolbar {
   color: #fff;
 }
 
-.card-background-page .fab {
+.card-background-page .add-new-btn .fab {
   background-color: #f4b953;
 }
 
 .card-background-page .delete-icon {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  font-size: 30px;
-  color: #ed4949;
+  color: #fff;
 }
 
 ion-slides {
