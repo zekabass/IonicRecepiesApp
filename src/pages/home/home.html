@@ -1,14 +1,36 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Recepies App
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content class="card-background-page" padding>
+	<ion-fab right bottom #fab1>
+		<button ion-fab (click)="changePage('add-recepie')" ><ion-icon name="add"></ion-icon></button>	
+	</ion-fab>
+
+	<ion-searchbar
+		[(ngModel)]="myInput"
+		[showCancelButton]="shouldShowCancel"
+		(ionInput)="onInput($event)"
+		(ionCancel)="onCancel($event)">
+	</ion-searchbar>
+
+	<ion-card *ngFor="let recepie of recepies">
+		<div class="card-wrapper" [style.backgroundImage]="'url(' + recepie.imageUrl + ')'">
+
+			<div class="background-over" ></div>
+
+			<ion-chip color="secondary">
+				<ion-label color="dark">{{categories[recepie.category]}}</ion-label>
+			</ion-chip>
+
+			<div class="card-title clickable" (click)="changePage('recepie-view')">{{recepie.title}}</div>
+
+			<ion-icon class="delete-icon clickable" name="ios-trash-outline"></ion-icon>
+		</div>	
+	</ion-card>
+
 </ion-content>
