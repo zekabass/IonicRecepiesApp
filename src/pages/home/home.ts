@@ -30,18 +30,6 @@ export class HomePage {
 		this._mainSrv.mainState$.subscribe((data)=>this.mainState = data);
 	}
 
-	onCancel() {
-
-	}
-
-	onInput(event) {
-
-	}
-
-	showCancelButton(event) {
-
-	}
-
 	changePage(page, recepie){
 		switch(page) {
 			case 'recepie-view':

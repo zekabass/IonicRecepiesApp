@@ -159,12 +159,6 @@ var HomePage = /** @class */ (function () {
         var _this = this;
         this._mainSrv.mainState$.subscribe(function (data) { return _this.mainState = data; });
     };
-    HomePage.prototype.onCancel = function () {
-    };
-    HomePage.prototype.onInput = function (event) {
-    };
-    HomePage.prototype.showCancelButton = function (event) {
-    };
     HomePage.prototype.changePage = function (page, recepie) {
         switch (page) {
             case 'recepie-view':
@@ -181,12 +175,12 @@ var HomePage = /** @class */ (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Recepies App\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content class="card-background-page" padding>\n	<ion-fab class="add-new-btn" right bottom #fab1>\n		<button ion-fab (click)="changePage(\'add-recepie\')" ><ion-icon name="add"></ion-icon></button>	\n	</ion-fab>\n\n	<ion-searchbar\n		[(ngModel)]="term"\n		[showCancelButton]="shouldShowCancel"\n		(ionInput)="onInput($event)"\n		(ionCancel)="onCancel($event)">\n	</ion-searchbar>\n	\n	<ion-card *ngFor="let recepie of _mainSrv.recepies$ | async | filter:term">\n		<div class="card-wrapper" [style.backgroundImage]="\'url(\' + recepie.imageUrl + \')\'">\n\n			<div class="background-over" ></div>\n\n			<ion-chip color="secondary">\n				<ion-label color="dark">{{categories[recepie.category]}}</ion-label>\n			</ion-chip>\n\n			<div class="card-title clickable" (click)="changePage(\'recepie-view\', recepie)">{{recepie.title}}</div>\n		\n			<ion-fab left bottom #fabDelete>\n					<button ion-fab color="danger" mini (click)="removeRecepie(recepie)"><ion-icon class="delete-icon clickable" name="ios-trash-outline"></ion-icon></button>	\n			</ion-fab>\n		</div>	\n	</ion-card>\n\n</ion-content>\n'/*ion-inline-end:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Recepies App\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="card-background-page" padding>\n\n	<ion-fab class="add-new-btn" right bottom #fab1>\n\n		<button ion-fab (click)="changePage(\'add-recepie\')" ><ion-icon name="add"></ion-icon></button>	\n\n	</ion-fab>\n\n\n\n	<ion-searchbar\n\n		[(ngModel)]="term"\n\n	>\n\n	</ion-searchbar>\n\n	\n\n	<ion-card *ngFor="let recepie of _mainSrv.recepies$ | async | filter:term">\n\n		<div class="card-wrapper" [style.backgroundImage]="\'url(\' + recepie.imageUrl + \')\'">\n\n\n\n			<div class="background-over" ></div>\n\n\n\n			<ion-chip color="secondary">\n\n				<ion-label color="dark">{{categories[recepie.category]}}</ion-label>\n\n			</ion-chip>\n\n\n\n			<div class="card-title clickable" (click)="changePage(\'recepie-view\', recepie)">{{recepie.title}}</div>\n\n		\n\n			<ion-fab left bottom #fabDelete>\n\n					<button ion-fab color="danger" mini (click)="removeRecepie(recepie)"><ion-icon class="delete-icon clickable" name="ios-trash-outline"></ion-icon></button>	\n\n			</ion-fab>\n\n		</div>	\n\n	</ion-card>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\home\home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_4__services_main_service__["a" /* MainService */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__services_main_service__["a" /* MainService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_main_service__["a" /* MainService */]) === "function" && _b || Object])
     ], HomePage);
     return HomePage;
+    var _a, _b;
 }());
 
 //# sourceMappingURL=home.js.map
@@ -224,17 +218,27 @@ var RecepieView = /** @class */ (function () {
     }
     RecepieView.prototype.ngOnInit = function () {
         var _this = this;
-        this._mainSrv.recepies$.subscribe(function (data) { return _this.recepies = data; });
         this._mainSrv.mainState$.subscribe(function (data) { return _this.mainState = data; });
+        this._mainSrv.recepies$.subscribe(function (data) {
+            _this.filterRecepies(data);
+        });
+    };
+    RecepieView.prototype.filterRecepies = function (all) {
+        var selRecepie = this.mainState.selectedRecepie;
+        this.recommended = all.filter(function (recepie) {
+            return (recepie.category === selRecepie.category && recepie.id !== selRecepie.id ?
+                recepie
+                : '');
+        });
     };
     RecepieView = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'recepie-view',template:/*ion-inline-start:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/recepie/recepie.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Recepies App\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n	<h1>{{mainState.selectedRecepie.title}}</h1>	\n	<p>Created: {{mainState.selectedRecepie.created | date}} | Category: {{categories[mainState.selectedRecepie.category]}}</p>\n	<img src="{{mainState.selectedRecepie.imageUrl}}" alt="">\n	<p>{{mainState.selectedRecepie.description}}</p>\n	\n	<p>We Recommend:</p>\n	\n	<ion-slides>\n		<ion-slide>\n			<h1>Slide 1</h1>\n		</ion-slide>\n		<ion-slide>\n			<h1>Slide 2</h1>\n		</ion-slide>\n		<ion-slide>\n			<h1>Slide 3</h1>\n		</ion-slide>\n	</ion-slides>\n</ion-content>\n'/*ion-inline-end:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/recepie/recepie.html"*/
+            selector: 'recepie-view',template:/*ion-inline-start:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\recepie\recepie.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Recepies App\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n	<h1>{{mainState.selectedRecepie.title}}</h1>	\n\n	<ion-grid>\n\n		<ion-row>\n\n			<ion-col col-6><p>Created: {{mainState.selectedRecepie.created | date}}</p></ion-col>\n\n			<ion-col col-1><p>|</p></ion-col>\n\n			<ion-col col-5><p>Category: {{categories[mainState.selectedRecepie.category]}}</p></ion-col>\n\n		</ion-row>\n\n	</ion-grid>\n\n\n\n	<img src="{{mainState.selectedRecepie.imageUrl}}" alt="">\n\n	<p>{{mainState.selectedRecepie.description}}</p>\n\n	\n\n	<p>We Recommend:</p>\n\n	\n\n	<ion-slides>\n\n		<ion-slide *ngFor="let recepie of recommended">\n\n			<h1>{{recepie.title}}</h1>\n\n		</ion-slide>\n\n	</ion-slides>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\recepie\recepie.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_2__services_main_service__["a" /* MainService */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_main_service__["a" /* MainService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_main_service__["a" /* MainService */]) === "function" && _b || Object])
     ], RecepieView);
     return RecepieView;
+    var _a, _b;
 }());
 
 //# sourceMappingURL=recepie.js.map
@@ -329,7 +333,7 @@ var AddRecepie = /** @class */ (function () {
     }
     AddRecepie = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'add-recepie',template:/*ion-inline-start:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/addRecepie/add.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Recepies App\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n	<h1>Add new Recepie</h1>		\n  \n</ion-content>\n'/*ion-inline-end:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/addRecepie/add.html"*/
+            selector: 'add-recepie',template:/*ion-inline-start:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\addRecepie\add.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Recepies App\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n	<h1>Add new Recepie</h1>		\n\n  \n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\addRecepie\add.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]])
     ], AddRecepie);
@@ -478,7 +482,7 @@ var MyApp = /** @class */ (function () {
         });
     }
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/app/app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\app\app.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
     ], MyApp);
@@ -576,6 +580,7 @@ var FilterPipe = /** @class */ (function () {
     function FilterPipe() {
     }
     FilterPipe.prototype.transform = function (recepies, term) {
+        console.log(term);
         if (term === undefined)
             return recepies;
         return recepies.filter(function (recepie) {

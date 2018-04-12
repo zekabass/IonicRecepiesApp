@@ -3,9 +3,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({
     name: 'filter'
 })
-export class FilterPipe implements PipeTransform {
 
+export class FilterPipe implements PipeTransform {
     transform(recepies: any, term: any): any {
+        console.log(term)
         if (term === undefined) return recepies;
             
         return recepies.filter(function(recepie){

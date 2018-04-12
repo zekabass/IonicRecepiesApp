@@ -8,21 +8,22 @@
 
 <ion-content padding>
 	<h1>{{mainState.selectedRecepie.title}}</h1>	
-	<p>Created: {{mainState.selectedRecepie.created | date}} | Category: {{categories[mainState.selectedRecepie.category]}}</p>
+	<ion-grid>
+		<ion-row>
+			<ion-col col-6><p>Created: {{mainState.selectedRecepie.created | date}}</p></ion-col>
+			<ion-col col-1><p>|</p></ion-col>
+			<ion-col col-5><p>Category: {{categories[mainState.selectedRecepie.category]}}</p></ion-col>
+		</ion-row>
+	</ion-grid>
+
 	<img src="{{mainState.selectedRecepie.imageUrl}}" alt="">
 	<p>{{mainState.selectedRecepie.description}}</p>
 	
 	<p>We Recommend:</p>
 	
 	<ion-slides>
-		<ion-slide>
-			<h1>Slide 1</h1>
-		</ion-slide>
-		<ion-slide>
-			<h1>Slide 2</h1>
-		</ion-slide>
-		<ion-slide>
-			<h1>Slide 3</h1>
+		<ion-slide *ngFor="let recepie of recommended">
+			<h1>{{recepie.title}}</h1>
 		</ion-slide>
 	</ion-slides>
 </ion-content>

@@ -17,8 +17,9 @@ import { Categories } from '../../models/categories';
 
 export class RecepieView {
 	public recepies:Recepie[];
-	public mainState:object;
+	public mainState:any;
 	public categories = Categories;
+	public recommended:Recepie[];
 
 	constructor(
 		public navCtrl: NavController,
@@ -28,7 +29,21 @@ export class RecepieView {
 	}
 
 	ngOnInit(){
-		this._mainSrv.recepies$.subscribe((data)=>this.recepies = data)
-		this._mainSrv.mainState$.subscribe((data)=>this.mainState = data)
+		this._mainSrv.mainState$.subscribe((data)=>this.mainState = data);
+		
+		this._mainSrv.recepies$.subscribe((data)=> {
+			this.filterRecepies(data);
+		});		
+	}
+
+	filterRecepies(all){
+		let selRecepie = this.mainState.selectedRecepie;
+		this.recommended = all.filter((recepie)=>{
+			return (
+				recepie.category === selRecepie.category && recepie.id !== selRecepie.id ? 
+					recepie
+					: ''
+			)
+		})
 	}
 }
