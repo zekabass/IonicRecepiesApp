@@ -25683,10 +25683,6 @@ ion-navbar.toolbar {
   text-align: center;
 }
 
-.card-background-page ion-card:hover {
-  cursor: pointer;
-}
-
 .card-background-page ion-chip {
   position: absolute;
   margin: 0 auto;
@@ -25699,6 +25695,10 @@ ion-navbar.toolbar {
   font-weight: bold;
 }
 
+.card-background-page .clickable {
+  cursor: pointer;
+}
+
 .card-background-page .card-wrapper {
   height: 200px;
   background-size: cover;
@@ -25708,7 +25708,7 @@ ion-navbar.toolbar {
 .card-background-page .background-over {
   height: 200px;
   background: #000;
-  opacity: 0.3;
+  opacity: 0.5;
 }
 
 .card-background-page .card-title {
@@ -25720,6 +25720,14 @@ ion-navbar.toolbar {
   color: #fff;
 }
 
-.card-background-page .fab {
+.card-background-page .add-new-btn .fab {
   background-color: #f4b953;
+}
+
+.card-background-page .delete-icon {
+  color: #fff;
+}
+
+ion-slides {
+  height: 200px;
 }

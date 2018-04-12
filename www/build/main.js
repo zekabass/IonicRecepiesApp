@@ -177,10 +177,10 @@ var HomePage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-home',template:/*ion-inline-start:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Recepies App\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="card-background-page" padding>\n\n	<ion-fab class="add-new-btn" right bottom #fab1>\n\n		<button ion-fab (click)="changePage(\'add-recepie\')" ><ion-icon name="add"></ion-icon></button>	\n\n	</ion-fab>\n\n\n\n	<ion-searchbar\n\n		[(ngModel)]="term"\n\n	>\n\n	</ion-searchbar>\n\n	\n\n	<ion-card *ngFor="let recepie of _mainSrv.recepies$ | async | filter:term">\n\n		<div class="card-wrapper" [style.backgroundImage]="\'url(\' + recepie.imageUrl + \')\'">\n\n\n\n			<div class="background-over" ></div>\n\n\n\n			<ion-chip color="secondary">\n\n				<ion-label color="dark">{{categories[recepie.category]}}</ion-label>\n\n			</ion-chip>\n\n\n\n			<div class="card-title clickable" (click)="changePage(\'recepie-view\', recepie)">{{recepie.title}}</div>\n\n		\n\n			<ion-fab left bottom #fabDelete>\n\n					<button ion-fab color="danger" mini (click)="removeRecepie(recepie)"><ion-icon class="delete-icon clickable" name="ios-trash-outline"></ion-icon></button>	\n\n			</ion-fab>\n\n		</div>	\n\n	</ion-card>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\home\home.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__services_main_service__["a" /* MainService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_main_service__["a" /* MainService */]) === "function" && _b || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_4__services_main_service__["a" /* MainService */]])
     ], HomePage);
     return HomePage;
-    var _a, _b;
 }());
 
 //# sourceMappingURL=home.js.map
@@ -226,19 +226,18 @@ var RecepieView = /** @class */ (function () {
     RecepieView.prototype.filterRecepies = function (all) {
         var selRecepie = this.mainState.selectedRecepie;
         this.recommended = all.filter(function (recepie) {
-            return (recepie.category === selRecepie.category && recepie.id !== selRecepie.id ?
-                recepie
-                : '');
+            return ((recepie.category === selRecepie.category && recepie.id !== selRecepie.id) &&
+                recepie);
         });
     };
     RecepieView = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'recepie-view',template:/*ion-inline-start:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\recepie\recepie.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Recepies App\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n	<h1>{{mainState.selectedRecepie.title}}</h1>	\n\n	<ion-grid>\n\n		<ion-row>\n\n			<ion-col col-6><p>Created: {{mainState.selectedRecepie.created | date}}</p></ion-col>\n\n			<ion-col col-1><p>|</p></ion-col>\n\n			<ion-col col-5><p>Category: {{categories[mainState.selectedRecepie.category]}}</p></ion-col>\n\n		</ion-row>\n\n	</ion-grid>\n\n\n\n	<img src="{{mainState.selectedRecepie.imageUrl}}" alt="">\n\n	<p>{{mainState.selectedRecepie.description}}</p>\n\n	\n\n	<p>We Recommend:</p>\n\n	\n\n	<ion-slides>\n\n		<ion-slide *ngFor="let recepie of recommended">\n\n			<h1>{{recepie.title}}</h1>\n\n		</ion-slide>\n\n	</ion-slides>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\recepie\recepie.html"*/
+            selector: 'recepie-view',template:/*ion-inline-start:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\recepie\recepie.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Recepies App\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n	<h1>{{mainState.selectedRecepie.title}}</h1>	\n\n	<ion-grid>\n\n		<ion-row>\n\n			<ion-col col-6><p>Created: {{mainState.selectedRecepie.created | date}}</p></ion-col>\n\n			<ion-col col-1><p>|</p></ion-col>\n\n			<ion-col col-5><p>Category: {{categories[mainState.selectedRecepie.category]}}</p></ion-col>\n\n		</ion-row>\n\n	</ion-grid>\n\n\n\n	<img src="{{mainState.selectedRecepie.imageUrl}}" alt="">\n\n	<p>{{mainState.selectedRecepie.description}}</p>\n\n	\n\n	<p> <strong>We Recommend:</strong> </p>\n\n	\n\n	<ion-slides>\n\n		<ion-slide *ngFor="let recepie of recommended">\n\n			<h1>{{recepie.title}}</h1>\n\n		</ion-slide>\n\n	</ion-slides>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\recepie\recepie.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_main_service__["a" /* MainService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_main_service__["a" /* MainService */]) === "function" && _b || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_2__services_main_service__["a" /* MainService */]])
     ], RecepieView);
     return RecepieView;
-    var _a, _b;
 }());
 
 //# sourceMappingURL=recepie.js.map

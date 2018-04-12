@@ -40,9 +40,9 @@ export class RecepieView {
 		let selRecepie = this.mainState.selectedRecepie;
 		this.recommended = all.filter((recepie)=>{
 			return (
-				recepie.category === selRecepie.category && recepie.id !== selRecepie.id ? 
+				(recepie.category === selRecepie.category && recepie.id !== selRecepie.id) && 
 					recepie
-					: ''
+	
 			)
 		})
 	}
