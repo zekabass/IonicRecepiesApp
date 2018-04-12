@@ -17,12 +17,11 @@ import * as RecepieActions from "../actions/recepie.actions";
 import * as AppActions from "../actions/app.actions";
 
 import { Observable } from "rxjs/Rx";
+import { ToastController } from 'ionic-angular';
 
-enum Categories {
-	Dessert ,
-	Lunch ,
-	Dinner ,
-}
+import { Categories } from '../models/categories';  
+
+
 
 @Injectable()
 
@@ -34,6 +33,7 @@ export class MainService {
 	constructor(
 		public http: Http,  
 		private store: Store<AppState>, 
+		private toastCtrl: ToastController
 	) { 
 		this.recepies$ = store.select<any>("recepies");
 		this.mainState$ = store.select<any>("mainState");
@@ -64,6 +64,16 @@ export class MainService {
 
 	selectRecepie(recepie){
 		this.store.dispatch(new AppActions.SetSelected(recepie));
+	}
+
+	deleteRecepie(recepie) {
+		this.store.dispatch(new RecepieActions.RemoveRecepie(recepie.id));
+		let toast = this.toastCtrl.create({
+			message: `${recepie.title} was deleted`,
+			duration: 3000,
+			position: 'bottom'
+		});
+		toast.present();
 	}
 
 }

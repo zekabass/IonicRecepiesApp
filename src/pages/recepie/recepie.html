@@ -8,6 +8,7 @@
 
 <ion-content padding>
 	<h1>{{mainState.selectedRecepie.title}}</h1>	
+	<p>Created: {{mainState.selectedRecepie.created | date}} | Category: {{categories[mainState.selectedRecepie.category]}}</p>
 	<img src="{{mainState.selectedRecepie.imageUrl}}" alt="">
 	<p>{{mainState.selectedRecepie.description}}</p>
 	

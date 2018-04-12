@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
+
 // Data Models
 import { Recepie } from '../../models/recepieModel';
 // Services
 import { MainService } from '../../services/main.service';
+
+import { Categories } from '../../models/categories';  
 
 @Component({
   	selector: 'recepie-view',
@@ -15,6 +18,7 @@ import { MainService } from '../../services/main.service';
 export class RecepieView {
 	public recepies:Recepie[];
 	public mainState:object;
+	public categories = Categories;
 
 	constructor(
 		public navCtrl: NavController,

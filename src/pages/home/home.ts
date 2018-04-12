@@ -4,8 +4,6 @@ import { NavController } from 'ionic-angular';
 import { RecepieView } from '../recepie/recepie';
 import { AddRecepie } from '../addRecepie/add';
 
-import { ToastController } from 'ionic-angular';
-
 // Data Models
 import { Recepie } from '../../models/recepieModel';
 
@@ -29,7 +27,6 @@ export class HomePage {
 
 	constructor(	
 		public navCtrl: NavController, 
-		private toastCtrl: ToastController,
 		private _mainSrv: MainService
 	) {}
 
@@ -64,13 +61,7 @@ export class HomePage {
 	}
 
 	removeRecepie(recepie){
-		// this.store.dispatch(new RecepieActions.RemoveRecepie(recepie.id));
-		let toast = this.toastCtrl.create({
-			message: `${recepie.title} was deleted`,
-			duration: 3000,
-			position: 'bottom'
-		});
-		toast.present();
+		this._mainSrv.deleteRecepie(recepie);
 	}
 
 }

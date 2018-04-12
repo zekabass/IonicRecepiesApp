@@ -14,8 +14,11 @@ import { AddRecepie } from '../pages/addRecepie/add';
 import { StoreModule } from '@ngrx/store';
 import { ROOT_REDUCER } from './../reducers/wrapper';
 
-// Services
+/* Services */ 
 import { MainService } from '../services/main.service';
+
+/* Ngrx dev tool imports*/
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 
 @NgModule({
@@ -29,7 +32,11 @@ import { MainService } from '../services/main.service';
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    StoreModule.forRoot( ROOT_REDUCER )
+    StoreModule.forRoot( ROOT_REDUCER ),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      // logOnly: environment.production // Restrict extension to log-only mode
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
