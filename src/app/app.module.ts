@@ -12,7 +12,7 @@ import { RecepieView } from '../pages/recepie/recepie';
 import { AddRecepie } from '../pages/addRecepie/add';
 
 import { StoreModule } from '@ngrx/store';
-import { RecepieReducer } from '../reducers/recepie.reducer';
+import { ROOT_REDUCER } from './../reducers/wrapper';
 
 
 @NgModule({
@@ -26,7 +26,7 @@ import { RecepieReducer } from '../reducers/recepie.reducer';
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    StoreModule.forRoot({ appState: RecepieReducer })
+    StoreModule.forRoot( ROOT_REDUCER )
   ],
   bootstrap: [IonicApp],
   entryComponents: [

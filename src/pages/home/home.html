@@ -18,7 +18,7 @@
 		(ionCancel)="onCancel($event)">
 	</ion-searchbar>
 
-	<ion-card *ngFor="let recepie of recepies | async">
+	<ion-card *ngFor="let recepie of recepies$ | async">
 		<div class="card-wrapper" [style.backgroundImage]="'url(' + recepie.imageUrl + ')'">
 
 			<div class="background-over" ></div>
@@ -27,11 +27,10 @@
 				<ion-label color="dark">{{categories[recepie.category]}}</ion-label>
 			</ion-chip>
 
-			<div class="card-title clickable" (click)="changePage('recepie-view')">{{recepie.title}}</div>
-
-			
+			<div class="card-title clickable" (click)="changePage('recepie-view', recepie)">{{recepie.title}}</div>
+		
 			<ion-fab left bottom #fabDelete>
-					<button ion-fab color="danger" mini><ion-icon class="delete-icon clickable" name="ios-trash-outline"></ion-icon></button>	
+					<button ion-fab color="danger" mini (click)="removeRecepie(recepie)"><ion-icon class="delete-icon clickable" name="ios-trash-outline"></ion-icon></button>	
 			</ion-fab>
 		</div>	
 	</ion-card>

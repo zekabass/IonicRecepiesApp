@@ -1,27 +1,19 @@
 
 
-import { ActionReducer, Action } from '@ngrx/store';
-import * as RecepieActions from '../actions/recepie.actions';
-import { AppState } from '../services/state';  
+import { Action } from '@ngrx/store';
+import * as RecepieActions from '../actions/recepie.actions'; 
 
 export type Action = RecepieActions.All;
 
-let initialState:AppState = {
-    recepies:[],
-    selectedRecepie: undefined
-}
-
-export function RecepieReducer(state:any = initialState, action) {
+export function RecepieReducer(state = [], action) {
 
     switch (action.type) {
         case RecepieActions.ADD_RECEPIE:
-            return {...state, recepies: [...state.recepies, ...action.payload]};
-        
-        case RecepieActions.INITIAL:
-            return {...state, recepies: [...state.recepies, ...action.payload]};
+            return [...state, ...action.payload];
 
-        case RecepieActions.SET_SELECTED:
-            return state
+        case RecepieActions.REMOVE_RECEPIE:
+            return state.filter(recepie => recepie.id !== action.payload);
+
         default:
             return state
     }

@@ -8,13 +8,20 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/timeout';
 
+import { Observable } from "rxjs/Rx";
 
+// Data Models
 import { Recepie } from '../../models/recepieModel';
 
+// Store
 import { Store } from "@ngrx/store";
-import * as RecepieActions from "../../actions/recepie.actions";
 import { AppState } from '../../services/state';  
-import { Subscription } from "rxjs";
+
+// Actions
+import * as RecepieActions from "../../actions/recepie.actions";
+import * as AppActions from "../../actions/app.actions";
+
+import { ToastController } from 'ionic-angular';
 
 enum Categories {
 	Dessert ,
@@ -33,18 +40,20 @@ export class HomePage {
 	shouldShowCancel:boolean = false;
 	searchText:string;
 
-	private stateSubscription:Subscription;
+	public recepies$: Observable<Recepie[]>;
+	public mainState$: Observable<object>;
 	public categories = Categories;
 
 	constructor(	
 		public navCtrl: NavController, 
 		public http: Http,  
 		private store: Store<AppState>, 
+		private toastCtrl: ToastController
 	) {
-		this.stateSubscription = this.store.select('state').subscribe(userState => {
-
-		});
-
+		this.recepies$ = store.select<any>("recepies");
+		this.mainState$ = store.select<any>("mainState");
+		 
+		this.mainState$.subscribe(data => console.log(data))
 	}
 
 	ngOnInit() {
@@ -60,9 +69,7 @@ export class HomePage {
 			.timeout(timeoutMS)
 			.map(res => res.json()).subscribe(data => {
 				let responseData = data;
-
-				this.store.dispatch(new RecepieActions.InitialData(responseData.receipts));
-				
+				this.store.dispatch(new RecepieActions.AddRecepie(responseData.receipts));			
 			},
 			err => {
 				console.log('error fetching data');
@@ -84,16 +91,23 @@ export class HomePage {
 	changePage(page, data){
 		switch(page) {
 			case 'recepie-view':
-				this.store.dispatch(new RecepieActions.setSelected(data));
+				this.store.dispatch(new AppActions.SetSelected(data));
 				this.navCtrl.push(RecepieView)
 				break;
 			case 'add-recepie':
 				this.navCtrl.push(AddRecepie)
-				// let test
-				// this.recepies$.subscribe(data => test = data)
-				// this.store.dispatch(new RecepieActions.AddRecepie(test[0]))
 				break;
 		}	
+	}
+
+	removeRecepie(recepie){
+		this.store.dispatch(new RecepieActions.RemoveRecepie(recepie.id));
+		let toast = this.toastCtrl.create({
+			message: `${recepie.title} was deleted`,
+			duration: 3000,
+			position: 'bottom'
+		});
+		toast.present();
 	}
 
 }

@@ -50,6 +50,7 @@ webpackEmptyAsyncContext.id = 152;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_timeout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_timeout__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ngrx_store__ = __webpack_require__(203);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__actions_recepie_actions__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__actions_app_actions__ = __webpack_require__(303);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -66,6 +67,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+// Store
+
+// Actions
+
 
 
 var Categories;
@@ -75,14 +80,16 @@ var Categories;
     Categories[Categories["Dinner"] = 2] = "Dinner";
 })(Categories || (Categories = {}));
 var HomePage = /** @class */ (function () {
-    function HomePage(navCtrl, http, store) {
+    function HomePage(navCtrl, http, store, toastCtrl) {
         this.navCtrl = navCtrl;
         this.http = http;
         this.store = store;
+        this.toastCtrl = toastCtrl;
         this.shouldShowCancel = false;
         this.categories = Categories;
-        this.stateSubscription = this.store.select('state').subscribe(function (userState) {
-        });
+        this.recepies$ = store.select("recepies");
+        this.mainState$ = store.select("mainState");
+        this.mainState$.subscribe(function (data) { return console.log(data); });
     }
     HomePage.prototype.ngOnInit = function () {
         this.getRecepies();
@@ -96,7 +103,7 @@ var HomePage = /** @class */ (function () {
             .timeout(timeoutMS)
             .map(function (res) { return res.json(); }).subscribe(function (data) {
             var responseData = data;
-            _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_8__actions_recepie_actions__["c" /* InitialData */](responseData.receipts));
+            _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_8__actions_recepie_actions__["b" /* AddRecepie */](responseData.receipts));
         }, function (err) {
             console.log('error fetching data');
         });
@@ -110,25 +117,31 @@ var HomePage = /** @class */ (function () {
     HomePage.prototype.changePage = function (page, data) {
         switch (page) {
             case 'recepie-view':
-                this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_8__actions_recepie_actions__["e" /* setSelected */](data));
+                this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_9__actions_app_actions__["b" /* SetSelected */](data));
                 this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__recepie_recepie__["a" /* RecepieView */]);
                 break;
             case 'add-recepie':
                 this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__addRecepie_add__["a" /* AddRecepie */]);
-                // let test
-                // this.recepies$.subscribe(data => test = data)
-                // this.store.dispatch(new RecepieActions.AddRecepie(test[0]))
                 break;
         }
     };
+    HomePage.prototype.removeRecepie = function (recepie) {
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_8__actions_recepie_actions__["d" /* RemoveRecepie */](recepie.id));
+        var toast = this.toastCtrl.create({
+            message: recepie.title + " was deleted",
+            duration: 3000,
+            position: 'bottom'
+        });
+        toast.present();
+    };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Recepies App\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="card-background-page" padding>\n\n	<ion-fab class="add-new-btn" right bottom #fab1>\n\n		<button ion-fab (click)="changePage(\'add-recepie\')" ><ion-icon name="add"></ion-icon></button>	\n\n	</ion-fab>\n\n\n\n	<ion-searchbar\n\n		[(ngModel)]="myInput"\n\n		[showCancelButton]="shouldShowCancel"\n\n		(ionInput)="onInput($event)"\n\n		(ionCancel)="onCancel($event)">\n\n	</ion-searchbar>\n\n\n\n	<ion-card *ngFor="let recepie of recepies | async">\n\n		<div class="card-wrapper" [style.backgroundImage]="\'url(\' + recepie.imageUrl + \')\'">\n\n\n\n			<div class="background-over" ></div>\n\n\n\n			<ion-chip color="secondary">\n\n				<ion-label color="dark">{{categories[recepie.category]}}</ion-label>\n\n			</ion-chip>\n\n\n\n			<div class="card-title clickable" (click)="changePage(\'recepie-view\')">{{recepie.title}}</div>\n\n\n\n			\n\n			<ion-fab left bottom #fabDelete>\n\n					<button ion-fab color="danger" mini><ion-icon class="delete-icon clickable" name="ios-trash-outline"></ion-icon></button>	\n\n			</ion-fab>\n\n		</div>	\n\n	</ion-card>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\home\home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Recepies App\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content class="card-background-page" padding>\n	<ion-fab class="add-new-btn" right bottom #fab1>\n		<button ion-fab (click)="changePage(\'add-recepie\')" ><ion-icon name="add"></ion-icon></button>	\n	</ion-fab>\n\n	<ion-searchbar\n		[(ngModel)]="myInput"\n		[showCancelButton]="shouldShowCancel"\n		(ionInput)="onInput($event)"\n		(ionCancel)="onCancel($event)">\n	</ion-searchbar>\n\n	<ion-card *ngFor="let recepie of recepies$ | async">\n		<div class="card-wrapper" [style.backgroundImage]="\'url(\' + recepie.imageUrl + \')\'">\n\n			<div class="background-over" ></div>\n\n			<ion-chip color="secondary">\n				<ion-label color="dark">{{categories[recepie.category]}}</ion-label>\n			</ion-chip>\n\n			<div class="card-title clickable" (click)="changePage(\'recepie-view\', recepie)">{{recepie.title}}</div>\n		\n			<ion-fab left bottom #fabDelete>\n					<button ion-fab color="danger" mini (click)="removeRecepie(recepie)"><ion-icon class="delete-icon clickable" name="ios-trash-outline"></ion-icon></button>	\n			</ion-fab>\n		</div>	\n	</ion-card>\n\n</ion-content>\n'/*ion-inline-end:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/home/home.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_7__ngrx_store__["a" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ngrx_store__["a" /* Store */]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_7__ngrx_store__["a" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ngrx_store__["a" /* Store */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* ToastController */]) === "function" && _d || Object])
     ], HomePage);
     return HomePage;
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=home.js.map
@@ -159,7 +172,7 @@ var RecepieView = /** @class */ (function () {
     }
     RecepieView = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'recepie-view',template:/*ion-inline-start:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\recepie\recepie.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Recepies App\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n	<h1>Test Article</h1>	\n\n	\n\n	<p>Recommended:</p>\n\n	\n\n	<ion-slides>\n\n		<ion-slide>\n\n			<h1>Slide 1</h1>\n\n		</ion-slide>\n\n		<ion-slide>\n\n			<h1>Slide 2</h1>\n\n		</ion-slide>\n\n		<ion-slide>\n\n			<h1>Slide 3</h1>\n\n		</ion-slide>\n\n	</ion-slides>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\recepie\recepie.html"*/
+            selector: 'recepie-view',template:/*ion-inline-start:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/recepie/recepie.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Recepies App\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n	<h1>Test Article</h1>	\n	\n	<p>Recommended:</p>\n	\n	<ion-slides>\n		<ion-slide>\n			<h1>Slide 1</h1>\n		</ion-slide>\n		<ion-slide>\n			<h1>Slide 2</h1>\n		</ion-slide>\n		<ion-slide>\n			<h1>Slide 3</h1>\n		</ion-slide>\n	</ion-slides>\n</ion-content>\n'/*ion-inline-end:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/recepie/recepie.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]])
     ], RecepieView);
@@ -194,7 +207,7 @@ var AddRecepie = /** @class */ (function () {
     }
     AddRecepie = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'add-recepie',template:/*ion-inline-start:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\addRecepie\add.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Recepies App\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n	<h1>Add new Recepie</h1>		\n\n  \n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\addRecepie\add.html"*/
+            selector: 'add-recepie',template:/*ion-inline-start:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/addRecepie/add.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Recepies App\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n	<h1>Add new Recepie</h1>		\n  \n</ion-content>\n'/*ion-inline-end:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/addRecepie/add.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]])
     ], AddRecepie);
@@ -210,20 +223,17 @@ var AddRecepie = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ADD_RECEPIE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return INITIAL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return SET_SELECTED; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return InitialData; });
-/* unused harmony export AddRecepie */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return setSelected; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return REMOVE_RECEPIE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return RemoveRecepie; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return AddRecepie; });
 var ADD_RECEPIE = "ADD_RECEPIE";
-var INITIAL = "INITIAL";
-var SET_SELECTED = "SET_SELECTED";
-var InitialData = /** @class */ (function () {
-    function InitialData(payload) {
+var REMOVE_RECEPIE = "INITIAL";
+var RemoveRecepie = /** @class */ (function () {
+    function RemoveRecepie(payload) {
         this.payload = payload;
-        this.type = INITIAL;
+        this.type = REMOVE_RECEPIE;
     }
-    return InitialData;
+    return RemoveRecepie;
 }());
 
 var AddRecepie = /** @class */ (function () {
@@ -232,14 +242,6 @@ var AddRecepie = /** @class */ (function () {
         this.type = ADD_RECEPIE;
     }
     return AddRecepie;
-}());
-
-var setSelected = /** @class */ (function () {
-    function setSelected(payload) {
-        this.payload = payload;
-        this.type = SET_SELECTED;
-    }
-    return setSelected;
 }());
 
 //# sourceMappingURL=recepie.actions.js.map
@@ -276,7 +278,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_recepie_recepie__ = __webpack_require__(198);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_addRecepie_add__ = __webpack_require__(199);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ngrx_store__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__reducers_recepie_reducer__ = __webpack_require__(300);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__reducers_wrapper__ = __webpack_require__(300);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -312,7 +314,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* MyApp */], {}, {
                     links: []
                 }),
-                __WEBPACK_IMPORTED_MODULE_10__ngrx_store__["b" /* StoreModule */].forRoot({ appState: __WEBPACK_IMPORTED_MODULE_11__reducers_recepie_reducer__["a" /* RecepieReducer */] })
+                __WEBPACK_IMPORTED_MODULE_10__ngrx_store__["b" /* StoreModule */].forRoot(__WEBPACK_IMPORTED_MODULE_11__reducers_wrapper__["a" /* ROOT_REDUCER */])
             ],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* IonicApp */]],
             entryComponents: [
@@ -370,7 +372,7 @@ var MyApp = /** @class */ (function () {
         });
     }
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\app\app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/app/app.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
     ], MyApp);
@@ -385,8 +387,47 @@ var MyApp = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ROOT_REDUCER; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__reducers_recepie_reducer__ = __webpack_require__(301);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducers_app_reducer__ = __webpack_require__(302);
+
+
+var ROOT_REDUCER = {
+    recepies: __WEBPACK_IMPORTED_MODULE_0__reducers_recepie_reducer__["a" /* RecepieReducer */],
+    mainState: __WEBPACK_IMPORTED_MODULE_1__reducers_app_reducer__["a" /* AppReducer */]
+};
+//# sourceMappingURL=wrapper.js.map
+
+/***/ }),
+
+/***/ 301:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = RecepieReducer;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_recepie_actions__ = __webpack_require__(204);
+
+function RecepieReducer(state, action) {
+    if (state === void 0) { state = []; }
+    switch (action.type) {
+        case __WEBPACK_IMPORTED_MODULE_0__actions_recepie_actions__["a" /* ADD_RECEPIE */]:
+            return state.concat(action.payload);
+        case __WEBPACK_IMPORTED_MODULE_0__actions_recepie_actions__["c" /* REMOVE_RECEPIE */]:
+            return state.filter(function (recepie) { return recepie.id !== action.payload; });
+        default:
+            return state;
+    }
+}
+//# sourceMappingURL=recepie.reducer.js.map
+
+/***/ }),
+
+/***/ 302:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = AppReducer;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_app_actions__ = __webpack_require__(303);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -396,24 +437,39 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 
-var initialState = {
-    recepies: [],
+var InitialState = {
     selectedRecepie: undefined
 };
-function RecepieReducer(state, action) {
-    if (state === void 0) { state = initialState; }
+function AppReducer(state, action) {
+    if (state === void 0) { state = InitialState; }
     switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_0__actions_recepie_actions__["a" /* ADD_RECEPIE */]:
-            return __assign({}, state, { recepies: state.recepies.concat(action.payload) });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_recepie_actions__["b" /* INITIAL */]:
-            return __assign({}, state, { recepies: state.recepies.concat(action.payload) });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_recepie_actions__["d" /* SET_SELECTED */]:
-            return state;
+        case __WEBPACK_IMPORTED_MODULE_0__actions_app_actions__["a" /* SET_SELECTED */]:
+            console.log(action.payload);
+            return __assign({}, state, { selectedRecepie: action.payload });
         default:
             return state;
     }
 }
-//# sourceMappingURL=recepie.reducer.js.map
+//# sourceMappingURL=app.reducer.js.map
+
+/***/ }),
+
+/***/ 303:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SET_SELECTED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return SetSelected; });
+var SET_SELECTED = "SET_SELECTED";
+var SetSelected = /** @class */ (function () {
+    function SetSelected(payload) {
+        this.payload = payload;
+        this.type = SET_SELECTED;
+    }
+    return SetSelected;
+}());
+
+//# sourceMappingURL=app.actions.js.map
 
 /***/ })
 
