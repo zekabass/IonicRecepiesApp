@@ -20,13 +20,17 @@ import { MainService } from '../services/main.service';
 /* Ngrx dev tool imports*/
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+// Filters
+import { FilterPipe } from '../pipes/filter.pipe';
+
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     RecepieView,
-    AddRecepie
+    AddRecepie,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       // logOnly: environment.production // Restrict extension to log-only mode
-    })
+    }),
   ],
   bootstrap: [IonicApp],
   entryComponents: [

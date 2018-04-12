@@ -12,13 +12,13 @@
 	</ion-fab>
 
 	<ion-searchbar
-		[(ngModel)]="myInput"
+		[(ngModel)]="term"
 		[showCancelButton]="shouldShowCancel"
 		(ionInput)="onInput($event)"
 		(ionCancel)="onCancel($event)">
 	</ion-searchbar>
-
-	<ion-card *ngFor="let recepie of recepies">
+	
+	<ion-card *ngFor="let recepie of _mainSrv.recepies$ | async | filter:term">
 		<div class="card-wrapper" [style.backgroundImage]="'url(' + recepie.imageUrl + ')'">
 
 			<div class="background-over" ></div>

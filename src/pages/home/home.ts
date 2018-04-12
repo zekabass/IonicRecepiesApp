@@ -4,11 +4,9 @@ import { NavController } from 'ionic-angular';
 import { RecepieView } from '../recepie/recepie';
 import { AddRecepie } from '../addRecepie/add';
 
-// Data Models
-import { Recepie } from '../../models/recepieModel';
-
 // Services
 import { MainService } from '../../services/main.service';
+
 
 @Component({
   	selector: 'page-home',
@@ -18,12 +16,10 @@ import { MainService } from '../../services/main.service';
 
 export class HomePage {
 
-	shouldShowCancel:boolean = false;
-	searchText:string;
-
-	public categories;
-	public recepies:Recepie[];
+	public shouldShowCancel:boolean = false;
 	public mainState:object;
+	public term:string;
+	public categories = this._mainSrv.categories
 
 	constructor(	
 		public navCtrl: NavController, 
@@ -31,9 +27,7 @@ export class HomePage {
 	) {}
 
 	ngOnInit(){
-		this._mainSrv.recepies$.subscribe((data)=>this.recepies = data);
 		this._mainSrv.mainState$.subscribe((data)=>this.mainState = data);
-		this.categories = this._mainSrv.categories;
 	}
 
 	onCancel() {
