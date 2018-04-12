@@ -13,7 +13,6 @@ export function AppReducer(state = InitialState, action) {
 
     switch (action.type) {
         case AppActions.SET_SELECTED:
-            console.log(action.payload)
             return { ...state, selectedRecepie:action.payload }
 
         default:

@@ -4,30 +4,13 @@ import { NavController } from 'ionic-angular';
 import { RecepieView } from '../recepie/recepie';
 import { AddRecepie } from '../addRecepie/add';
 
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/timeout';
-
-import { Observable } from "rxjs/Rx";
+import { ToastController } from 'ionic-angular';
 
 // Data Models
 import { Recepie } from '../../models/recepieModel';
 
-// Store
-import { Store } from "@ngrx/store";
-import { AppState } from '../../services/state';  
-
-// Actions
-import * as RecepieActions from "../../actions/recepie.actions";
-import * as AppActions from "../../actions/app.actions";
-
-import { ToastController } from 'ionic-angular';
-
-enum Categories {
-	Dessert ,
-	Lunch ,
-	Dinner ,
-}
+// Services
+import { MainService } from '../../services/main.service';
 
 @Component({
   	selector: 'page-home',
@@ -40,40 +23,20 @@ export class HomePage {
 	shouldShowCancel:boolean = false;
 	searchText:string;
 
-	public recepies$: Observable<Recepie[]>;
-	public mainState$: Observable<object>;
-	public categories = Categories;
+	public categories;
+	public recepies:Recepie[];
+	public mainState:object;
 
 	constructor(	
 		public navCtrl: NavController, 
-		public http: Http,  
-		private store: Store<AppState>, 
-		private toastCtrl: ToastController
-	) {
-		this.recepies$ = store.select<any>("recepies");
-		this.mainState$ = store.select<any>("mainState");
-		 
-		this.mainState$.subscribe(data => console.log(data))
-	}
+		private toastCtrl: ToastController,
+		private _mainSrv: MainService
+	) {}
 
-	ngOnInit() {
-		this.getRecepies();
-	}
-
-	getRecepies() {
-		let path = 'https://demo2194120.mockable.io/receipts';
-		let encodedPath = encodeURI(path);
-		let timeoutMS = 10000;
-
-		this.http.get(encodedPath)
-			.timeout(timeoutMS)
-			.map(res => res.json()).subscribe(data => {
-				let responseData = data;
-				this.store.dispatch(new RecepieActions.AddRecepie(responseData.receipts));			
-			},
-			err => {
-				console.log('error fetching data');
-			});
+	ngOnInit(){
+		this._mainSrv.recepies$.subscribe((data)=>this.recepies = data);
+		this._mainSrv.mainState$.subscribe((data)=>this.mainState = data);
+		this.categories = this._mainSrv.categories;
 	}
 
 	onCancel() {
@@ -88,10 +51,10 @@ export class HomePage {
 
 	}
 
-	changePage(page, data){
+	changePage(page, recepie){
 		switch(page) {
 			case 'recepie-view':
-				this.store.dispatch(new AppActions.SetSelected(data));
+				this._mainSrv.selectRecepie(recepie);
 				this.navCtrl.push(RecepieView)
 				break;
 			case 'add-recepie':
@@ -101,7 +64,7 @@ export class HomePage {
 	}
 
 	removeRecepie(recepie){
-		this.store.dispatch(new RecepieActions.RemoveRecepie(recepie.id));
+		// this.store.dispatch(new RecepieActions.RemoveRecepie(recepie.id));
 		let toast = this.toastCtrl.create({
 			message: `${recepie.title} was deleted`,
 			duration: 3000,

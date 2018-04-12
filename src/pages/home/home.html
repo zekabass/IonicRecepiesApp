@@ -18,7 +18,7 @@
 		(ionCancel)="onCancel($event)">
 	</ion-searchbar>
 
-	<ion-card *ngFor="let recepie of recepies$ | async">
+	<ion-card *ngFor="let recepie of recepies">
 		<div class="card-wrapper" [style.backgroundImage]="'url(' + recepie.imageUrl + ')'">
 
 			<div class="background-over" ></div>

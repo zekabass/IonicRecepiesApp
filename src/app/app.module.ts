@@ -14,6 +14,9 @@ import { AddRecepie } from '../pages/addRecepie/add';
 import { StoreModule } from '@ngrx/store';
 import { ROOT_REDUCER } from './../reducers/wrapper';
 
+// Services
+import { MainService } from '../services/main.service';
+
 
 @NgModule({
   declarations: [
@@ -39,6 +42,7 @@ import { ROOT_REDUCER } from './../reducers/wrapper';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    MainService
   ]
 })
 export class AppModule {}

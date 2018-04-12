@@ -7,9 +7,11 @@
 </ion-header>
 
 <ion-content padding>
-	<h1>Test Article</h1>	
+	<h1>{{mainState.selectedRecepie.title}}</h1>	
+	<img src="{{mainState.selectedRecepie.imageUrl}}" alt="">
+	<p>{{mainState.selectedRecepie.description}}</p>
 	
-	<p>Recommended:</p>
+	<p>We Recommend:</p>
 	
 	<ion-slides>
 		<ion-slide>
