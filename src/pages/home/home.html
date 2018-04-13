@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Recepies App
-    </ion-title>
-  </ion-navbar>
+	<ion-navbar>
+		<ion-title>
+			Listing
+		</ion-title>
+	</ion-navbar>
 </ion-header>
 
 <ion-content class="card-background-page" padding>
@@ -11,12 +11,11 @@
 		<button ion-fab (click)="changePage('add-recepie')" ><ion-icon name="add"></ion-icon></button>	
 	</ion-fab>
 
-	<ion-searchbar
-		[(ngModel)]="term"
-	>
-	</ion-searchbar>
-	
-	<ion-card *ngFor="let recepie of _mainSrv.recepies$ | async | filter:term">
+	<ion-searchbar [(ngModel)]="term"> </ion-searchbar>
+
+	<p *ngIf="term">{{(_mainSrv.recepies$ | async | filter:term).length}} recepies found </p>
+
+	<ion-card *ngFor="let recepie of _mainSrv.recepies$ | async | filter:term as result">
 		<div class="card-wrapper" [style.backgroundImage]="'url(' + recepie.imageUrl + ')'">
 
 			<div class="background-over" ></div>
@@ -30,7 +29,7 @@
 			<ion-fab left bottom #fabDelete>
 					<button ion-fab color="danger" mini (click)="removeRecepie(recepie)"><ion-icon class="delete-icon clickable" name="ios-trash-outline"></ion-icon></button>	
 			</ion-fab>
+			
 		</div>	
 	</ion-card>
-
 </ion-content>

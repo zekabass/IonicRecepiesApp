@@ -29,6 +29,7 @@ export class MainService {
 	public categories = Categories;
 	public recepies$: Observable<Recepie[]>;
 	public mainState$: Observable<object>;
+	public recepiesCount:number;
   
 	constructor(
 		public http: Http,  
@@ -37,8 +38,12 @@ export class MainService {
 	) { 
 		this.recepies$ = store.select<any>("recepies");
 		this.mainState$ = store.select<any>("mainState");
-				
+		this.recepies$.subscribe((data)=>{
+			this.recepiesCount = data.length;
+		})
+
 		this.initialize();
+
 	}
 
 	initialize() {
@@ -71,7 +76,19 @@ export class MainService {
 		let toast = this.toastCtrl.create({
 			message: `${recepie.title} was deleted`,
 			duration: 3000,
-			position: 'bottom'
+			position: 'bottom',
+			cssClass: 'danger'
+		});
+		toast.present();
+	}
+
+	addNewRecepie(recepie) {
+		this.store.dispatch(new RecepieActions.AddRecepie(recepie));
+		let toast = this.toastCtrl.create({
+			message: `${recepie.title} Added`,
+			duration: 3000,
+			position: 'bottom',
+			cssClass: 'success'
 		});
 		toast.present();
 	}

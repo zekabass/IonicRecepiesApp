@@ -20,8 +20,9 @@ import { MainService } from '../services/main.service';
 /* Ngrx dev tool imports*/
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-// Filters
+// Pipes
 import { FilterPipe } from '../pipes/filter.pipe';
+import { ObjKeys } from '../pipes/objKeys.pipe';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { FilterPipe } from '../pipes/filter.pipe';
     HomePage,
     RecepieView,
     AddRecepie,
-    FilterPipe
+    FilterPipe,
+    ObjKeys
   ],
   imports: [
     BrowserModule,

@@ -1,12 +1,34 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Recepies App
+      Create
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-	<h1>Add new Recepie</h1>		
+  <h1>Add new Recepie</h1>	
+  <form (ngSubmit)="submitAdd()">
+      <ion-item>
+        <ion-label floating>Title</ion-label>
+        <ion-input type="text" [(ngModel)]="recepie.title" name="title"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label floating>Category</ion-label>
+          <ion-select [(ngModel)]="selectedCategory" name="category">
+            <ion-option *ngFor="let category of categories | keys" [value]="category">{{category}}</ion-option>
+          </ion-select>
+      </ion-item>
+      <ion-item>
+          <ion-label floating>Image Url</ion-label>
+          <ion-input type="text" [(ngModel)]="recepie.imageUrl" name="image"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Description</ion-label>
+        <ion-textarea [(ngModel)]="recepie.description" name="description"></ion-textarea>
+      </ion-item>
+      <br><br>
+      <button ion-button type="submit" block>Add Recepie</button>
+  </form>	
   
 </ion-content>

@@ -28,6 +28,8 @@ export class HomePage {
 
 	ngOnInit(){
 		this._mainSrv.mainState$.subscribe((data)=>this.mainState = data);
+
+		this._mainSrv.recepies$.subscribe((data)=>console.log(data));
 	}
 
 	changePage(page, recepie){

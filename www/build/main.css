@@ -25678,6 +25678,14 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+ion-toast.success .toast-wrapper {
+  background: rgba(99, 198, 137, 0.9);
+}
+
+ion-toast.danger .toast-wrapper {
+  background: rgba(234, 84, 84, 0.9);
+}
+
 .card-background-page ion-card {
   position: relative;
   text-align: center;

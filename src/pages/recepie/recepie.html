@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Recepies App
+      Details
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -10,9 +10,9 @@
 	<h1>{{mainState.selectedRecepie.title}}</h1>	
 	<ion-grid>
 		<ion-row>
-			<ion-col col-6><p>Created: {{mainState.selectedRecepie.created | date}}</p></ion-col>
+			<ion-col col-6><p>Created: <b>{{mainState.selectedRecepie.created | date}}</b></p></ion-col>
 			<ion-col col-1><p>|</p></ion-col>
-			<ion-col col-5><p>Category: {{categories[mainState.selectedRecepie.category]}}</p></ion-col>
+			<ion-col col-5><p>Category: <b>{{categories[mainState.selectedRecepie.category]}}</b></p></ion-col>
 		</ion-row>
 	</ion-grid>
 

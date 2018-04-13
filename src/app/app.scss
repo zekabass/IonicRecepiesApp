@@ -13,4 +13,14 @@
 //
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
+
 // automatically applied to the <body> element in the app.
+
+
+ion-toast.success .toast-wrapper {
+    background: rgba(99, 198, 137, 0.9); 
+}
+
+ion-toast.danger .toast-wrapper {
+    background: rgba(234, 84, 84, 0.9) 
+}

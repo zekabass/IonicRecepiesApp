@@ -1,94 +1,5 @@
 webpackJsonp([0],{
 
-/***/ 104:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MainService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(285);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_timeout__ = __webpack_require__(286);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_timeout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_timeout__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngrx_store__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_recepie_actions__ = __webpack_require__(213);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__actions_app_actions__ = __webpack_require__(214);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_ionic_angular__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__models_categories__ = __webpack_require__(215);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-// Store
-
-// Actions
-
-
-
-
-var MainService = /** @class */ (function () {
-    function MainService(http, store, toastCtrl) {
-        this.http = http;
-        this.store = store;
-        this.toastCtrl = toastCtrl;
-        this.categories = __WEBPACK_IMPORTED_MODULE_8__models_categories__["a" /* Categories */];
-        this.recepies$ = store.select("recepies");
-        this.mainState$ = store.select("mainState");
-        this.initialize();
-    }
-    MainService.prototype.initialize = function () {
-        /* Fetch recepies data */
-        this.getRecepies();
-    };
-    MainService.prototype.getRecepies = function () {
-        var _this = this;
-        var path = 'https://demo2194120.mockable.io/receipts';
-        var encodedPath = encodeURI(path);
-        var timeoutMS = 10000;
-        this.http.get(encodedPath)
-            .timeout(timeoutMS)
-            .map(function (res) { return res.json(); }).subscribe(function (data) {
-            var responseData = data;
-            _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_5__actions_recepie_actions__["b" /* AddRecepie */](responseData.receipts));
-        }, function (err) {
-            console.log('error fetching data');
-        });
-    };
-    MainService.prototype.selectRecepie = function (recepie) {
-        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_app_actions__["b" /* SetSelected */](recepie));
-    };
-    MainService.prototype.deleteRecepie = function (recepie) {
-        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_5__actions_recepie_actions__["d" /* RemoveRecepie */](recepie.id));
-        var toast = this.toastCtrl.create({
-            message: recepie.title + " was deleted",
-            duration: 3000,
-            position: 'bottom'
-        });
-        toast.present();
-    };
-    MainService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */],
-            __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["h" /* Store */],
-            __WEBPACK_IMPORTED_MODULE_7_ionic_angular__["f" /* ToastController */]])
-    ], MainService);
-    return MainService;
-}());
-
-//# sourceMappingURL=main.service.js.map
-
-/***/ }),
-
 /***/ 116:
 /***/ (function(module, exports) {
 
@@ -132,7 +43,7 @@ webpackEmptyAsyncContext.id = 159;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__recepie_recepie__ = __webpack_require__(205);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__addRecepie_add__ = __webpack_require__(216);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_main_service__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_main_service__ = __webpack_require__(55);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -158,6 +69,7 @@ var HomePage = /** @class */ (function () {
     HomePage.prototype.ngOnInit = function () {
         var _this = this;
         this._mainSrv.mainState$.subscribe(function (data) { return _this.mainState = data; });
+        this._mainSrv.recepies$.subscribe(function (data) { return console.log(data); });
     };
     HomePage.prototype.changePage = function (page, recepie) {
         switch (page) {
@@ -175,7 +87,7 @@ var HomePage = /** @class */ (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Recepies App\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="card-background-page" padding>\n\n	<ion-fab class="add-new-btn" right bottom #fab1>\n\n		<button ion-fab (click)="changePage(\'add-recepie\')" ><ion-icon name="add"></ion-icon></button>	\n\n	</ion-fab>\n\n\n\n	<ion-searchbar\n\n		[(ngModel)]="term"\n\n	>\n\n	</ion-searchbar>\n\n	\n\n	<ion-card *ngFor="let recepie of _mainSrv.recepies$ | async | filter:term">\n\n		<div class="card-wrapper" [style.backgroundImage]="\'url(\' + recepie.imageUrl + \')\'">\n\n\n\n			<div class="background-over" ></div>\n\n\n\n			<ion-chip color="secondary">\n\n				<ion-label color="dark">{{categories[recepie.category]}}</ion-label>\n\n			</ion-chip>\n\n\n\n			<div class="card-title clickable" (click)="changePage(\'recepie-view\', recepie)">{{recepie.title}}</div>\n\n		\n\n			<ion-fab left bottom #fabDelete>\n\n					<button ion-fab color="danger" mini (click)="removeRecepie(recepie)"><ion-icon class="delete-icon clickable" name="ios-trash-outline"></ion-icon></button>	\n\n			</ion-fab>\n\n		</div>	\n\n	</ion-card>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\home\home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/home/home.html"*/'<ion-header>\n	<ion-navbar>\n		<ion-title>\n			Listing\n		</ion-title>\n	</ion-navbar>\n</ion-header>\n\n<ion-content class="card-background-page" padding>\n	<ion-fab class="add-new-btn" right bottom #fab1>\n		<button ion-fab (click)="changePage(\'add-recepie\')" ><ion-icon name="add"></ion-icon></button>	\n	</ion-fab>\n\n	<ion-searchbar [(ngModel)]="term"> </ion-searchbar>\n\n	<p *ngIf="term">{{(_mainSrv.recepies$ | async | filter:term).length}} recepies found </p>\n\n	<ion-card *ngFor="let recepie of _mainSrv.recepies$ | async | filter:term as result">\n		<div class="card-wrapper" [style.backgroundImage]="\'url(\' + recepie.imageUrl + \')\'">\n\n			<div class="background-over" ></div>\n\n			<ion-chip color="secondary">\n				<ion-label color="dark">{{categories[recepie.category]}}</ion-label>\n			</ion-chip>\n\n			<div class="card-title clickable" (click)="changePage(\'recepie-view\', recepie)">{{recepie.title}}</div>\n		\n			<ion-fab left bottom #fabDelete>\n					<button ion-fab color="danger" mini (click)="removeRecepie(recepie)"><ion-icon class="delete-icon clickable" name="ios-trash-outline"></ion-icon></button>	\n			</ion-fab>\n			\n		</div>	\n	</ion-card>\n</ion-content>\n'/*ion-inline-end:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/home/home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_4__services_main_service__["a" /* MainService */]])
@@ -194,7 +106,7 @@ var HomePage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RecepieView; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_main_service__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_main_service__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_categories__ = __webpack_require__(215);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -232,7 +144,7 @@ var RecepieView = /** @class */ (function () {
     };
     RecepieView = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'recepie-view',template:/*ion-inline-start:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\recepie\recepie.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Recepies App\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n	<h1>{{mainState.selectedRecepie.title}}</h1>	\n\n	<ion-grid>\n\n		<ion-row>\n\n			<ion-col col-6><p>Created: {{mainState.selectedRecepie.created | date}}</p></ion-col>\n\n			<ion-col col-1><p>|</p></ion-col>\n\n			<ion-col col-5><p>Category: {{categories[mainState.selectedRecepie.category]}}</p></ion-col>\n\n		</ion-row>\n\n	</ion-grid>\n\n\n\n	<img src="{{mainState.selectedRecepie.imageUrl}}" alt="">\n\n	<p>{{mainState.selectedRecepie.description}}</p>\n\n	\n\n	<p> <strong>We Recommend:</strong> </p>\n\n	\n\n	<ion-slides>\n\n		<ion-slide *ngFor="let recepie of recommended">\n\n			<h1>{{recepie.title}}</h1>\n\n		</ion-slide>\n\n	</ion-slides>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\recepie\recepie.html"*/
+            selector: 'recepie-view',template:/*ion-inline-start:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/recepie/recepie.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Details\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n	<h1>{{mainState.selectedRecepie.title}}</h1>	\n	<ion-grid>\n		<ion-row>\n			<ion-col col-6><p>Created: <b>{{mainState.selectedRecepie.created | date}}</b></p></ion-col>\n			<ion-col col-1><p>|</p></ion-col>\n			<ion-col col-5><p>Category: <b>{{categories[mainState.selectedRecepie.category]}}</b></p></ion-col>\n		</ion-row>\n	</ion-grid>\n\n	<img src="{{mainState.selectedRecepie.imageUrl}}" alt="">\n	<p>{{mainState.selectedRecepie.description}}</p>\n	\n	<p> <strong>We Recommend:</strong> </p>\n	\n	<ion-slides>\n		<ion-slide *ngFor="let recepie of recommended">\n			<h1>{{recepie.title}}</h1>\n		</ion-slide>\n	</ion-slides>\n</ion-content>\n'/*ion-inline-end:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/recepie/recepie.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_2__services_main_service__["a" /* MainService */]])
@@ -315,6 +227,7 @@ var Categories;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddRecepie; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_main_service__ = __webpack_require__(55);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -326,15 +239,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+// Services
+
 var AddRecepie = /** @class */ (function () {
-    function AddRecepie(navCtrl) {
+    function AddRecepie(navCtrl, _mainSrv) {
         this.navCtrl = navCtrl;
+        this._mainSrv = _mainSrv;
+        this.recepie = {
+            id: undefined,
+            category: undefined,
+            created: undefined,
+            description: undefined,
+            imageUrl: undefined,
+            title: undefined
+        };
+        this.categories = this._mainSrv.categories;
     }
+    AddRecepie.prototype.submitAdd = function () {
+        this.recepie.id = this._mainSrv.recepiesCount;
+        this.recepie.category = this.getCategoryId(this.selectedCategory);
+        this.recepie.created = new Date();
+        this.recepie.title = this.recepie.title[0].toLocaleUpperCase() + this.recepie.title.slice(1);
+        this._mainSrv.addNewRecepie(this.recepie);
+        this.navCtrl.pop();
+    };
+    AddRecepie.prototype.getCategoryId = function (category) {
+        return Number(this.categories[category]);
+    };
     AddRecepie = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'add-recepie',template:/*ion-inline-start:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\addRecepie\add.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Recepies App\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n	<h1>Add new Recepie</h1>		\n\n  \n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\pages\addRecepie\add.html"*/
+            selector: 'add-recepie',template:/*ion-inline-start:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/addRecepie/add.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Create\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h1>Add new Recepie</h1>	\n  <form (ngSubmit)="submitAdd()">\n      <ion-item>\n        <ion-label floating>Title</ion-label>\n        <ion-input type="text" [(ngModel)]="recepie.title" name="title"></ion-input>\n      </ion-item>\n      <ion-item>\n          <ion-label floating>Category</ion-label>\n          <ion-select [(ngModel)]="selectedCategory" name="category">\n            <ion-option *ngFor="let category of categories | keys" [value]="category">{{category}}</ion-option>\n          </ion-select>\n      </ion-item>\n      <ion-item>\n          <ion-label floating>Image Url</ion-label>\n          <ion-input type="text" [(ngModel)]="recepie.imageUrl" name="image"></ion-input>\n      </ion-item>\n      <ion-item>\n        <ion-label floating>Description</ion-label>\n        <ion-textarea [(ngModel)]="recepie.description" name="description"></ion-textarea>\n      </ion-item>\n      <br><br>\n      <button ion-button type="submit" block>Add Recepie</button>\n  </form>	\n  \n</ion-content>\n'/*ion-inline-end:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/addRecepie/add.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_2__services_main_service__["a" /* MainService */]])
     ], AddRecepie);
     return AddRecepie;
 }());
@@ -374,9 +311,10 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_addRecepie_add__ = __webpack_require__(216);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ngrx_store__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__reducers_wrapper__ = __webpack_require__(303);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__services_main_service__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__services_main_service__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ngrx_store_devtools__ = __webpack_require__(306);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pipes_filter_pipe__ = __webpack_require__(317);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pipes_objKeys_pipe__ = __webpack_require__(318);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -399,7 +337,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 /* Ngrx dev tool imports*/
 
-// Filters
+// Pipes
+
 
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -411,7 +350,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_7__pages_home_home__["a" /* HomePage */],
                 __WEBPACK_IMPORTED_MODULE_8__pages_recepie_recepie__["a" /* RecepieView */],
                 __WEBPACK_IMPORTED_MODULE_9__pages_addRecepie_add__["a" /* AddRecepie */],
-                __WEBPACK_IMPORTED_MODULE_14__pipes_filter_pipe__["a" /* FilterPipe */]
+                __WEBPACK_IMPORTED_MODULE_14__pipes_filter_pipe__["a" /* FilterPipe */],
+                __WEBPACK_IMPORTED_MODULE_15__pipes_objKeys_pipe__["a" /* ObjKeys */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -481,7 +421,7 @@ var MyApp = /** @class */ (function () {
         });
     }
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\Zeka\Desktop\Ionic test\IonicRecepiesApp\src\app\app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/app/app.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
     ], MyApp);
@@ -579,7 +519,6 @@ var FilterPipe = /** @class */ (function () {
     function FilterPipe() {
     }
     FilterPipe.prototype.transform = function (recepies, term) {
-        console.log(term);
         if (term === undefined)
             return recepies;
         return recepies.filter(function (recepie) {
@@ -595,6 +534,142 @@ var FilterPipe = /** @class */ (function () {
 }());
 
 //# sourceMappingURL=filter.pipe.js.map
+
+/***/ }),
+
+/***/ 318:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ObjKeys; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var ObjKeys = /** @class */ (function () {
+    function ObjKeys() {
+    }
+    ObjKeys.prototype.transform = function (value, args) {
+        if (args === void 0) { args = null; }
+        var keys = Object.keys(value);
+        return keys.slice(keys.length / 2);
+    };
+    ObjKeys = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["S" /* Pipe */])({
+            name: 'keys'
+        })
+    ], ObjKeys);
+    return ObjKeys;
+}());
+
+//# sourceMappingURL=objKeys.pipe.js.map
+
+/***/ }),
+
+/***/ 55:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MainService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(285);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_timeout__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_timeout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_timeout__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngrx_store__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_recepie_actions__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__actions_app_actions__ = __webpack_require__(214);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_ionic_angular__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__models_categories__ = __webpack_require__(215);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+// Store
+
+// Actions
+
+
+
+
+var MainService = /** @class */ (function () {
+    function MainService(http, store, toastCtrl) {
+        var _this = this;
+        this.http = http;
+        this.store = store;
+        this.toastCtrl = toastCtrl;
+        this.categories = __WEBPACK_IMPORTED_MODULE_8__models_categories__["a" /* Categories */];
+        this.recepies$ = store.select("recepies");
+        this.mainState$ = store.select("mainState");
+        this.recepies$.subscribe(function (data) {
+            _this.recepiesCount = data.length;
+        });
+        this.initialize();
+    }
+    MainService.prototype.initialize = function () {
+        /* Fetch recepies data */
+        this.getRecepies();
+    };
+    MainService.prototype.getRecepies = function () {
+        var _this = this;
+        var path = 'https://demo2194120.mockable.io/receipts';
+        var encodedPath = encodeURI(path);
+        var timeoutMS = 10000;
+        this.http.get(encodedPath)
+            .timeout(timeoutMS)
+            .map(function (res) { return res.json(); }).subscribe(function (data) {
+            var responseData = data;
+            _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_5__actions_recepie_actions__["b" /* AddRecepie */](responseData.receipts));
+        }, function (err) {
+            console.log('error fetching data');
+        });
+    };
+    MainService.prototype.selectRecepie = function (recepie) {
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_app_actions__["b" /* SetSelected */](recepie));
+    };
+    MainService.prototype.deleteRecepie = function (recepie) {
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_5__actions_recepie_actions__["d" /* RemoveRecepie */](recepie.id));
+        var toast = this.toastCtrl.create({
+            message: recepie.title + " was deleted",
+            duration: 3000,
+            position: 'bottom',
+            cssClass: 'danger'
+        });
+        toast.present();
+    };
+    MainService.prototype.addNewRecepie = function (recepie) {
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_5__actions_recepie_actions__["b" /* AddRecepie */](recepie));
+        var toast = this.toastCtrl.create({
+            message: recepie.title + " Added",
+            duration: 3000,
+            position: 'bottom',
+            cssClass: 'success'
+        });
+        toast.present();
+    };
+    MainService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["h" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["h" /* Store */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_7_ionic_angular__["f" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7_ionic_angular__["f" /* ToastController */]) === "function" && _c || Object])
+    ], MainService);
+    return MainService;
+    var _a, _b, _c;
+}());
+
+//# sourceMappingURL=main.service.js.map
 
 /***/ })
 
