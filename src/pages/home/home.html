@@ -20,14 +20,14 @@
 
 			<div class="background-over" ></div>
 
-			<ion-chip color="secondary">
-				<ion-label color="dark">{{categories[recepie.category]}}</ion-label>
+			<ion-chip class="category-chip">
+				<ion-label>{{categories[recepie.category]}}</ion-label>
 			</ion-chip>
 
 			<div class="card-title clickable" (click)="changePage('recepie-view', recepie)">{{recepie.title}}</div>
 		
 			<ion-fab left bottom #fabDelete>
-					<button ion-fab color="danger" mini (click)="removeRecepie(recepie)"><ion-icon class="delete-icon clickable" name="ios-trash-outline"></ion-icon></button>	
+					<button ion-fab class="fab-del" mini (click)="removeRecepie(recepie)"><ion-icon class="delete-icon clickable" name="ios-trash-outline"></ion-icon></button>	
 			</ion-fab>
 			
 		</div>	

@@ -25736,6 +25736,14 @@ ion-toast.danger .toast-wrapper {
   color: #fff;
 }
 
+.card-background-page .fab-del {
+  background: rgba(40, 46, 52, 0.6);
+}
+
+.card-background-page .category-chip {
+  background: rgba(132, 193, 96, 0.8);
+}
+
 ion-slides {
   height: 200px;
 }
