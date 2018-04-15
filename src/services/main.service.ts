@@ -12,7 +12,8 @@ import { Categories } from '../models/categories';
 // Store
 import { Store } from "@ngrx/store";
 import { AppState } from '../services/state';  
-// Actions
+
+/* Actions */
 import * as RecepieActions from "../actions/recepie.actions";
 import * as AppActions from "../actions/app.actions";
 

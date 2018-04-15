@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 
-// Data Models
+/* Data Models */
 import { Recepie } from '../../models/recepieModel';
-// Services
+/* Services */
 import { MainService } from '../../services/main.service';
 
 import { Categories } from '../../models/categories';  

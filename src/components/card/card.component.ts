@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-// Services
+/* Services */
 import { MainService } from '../../services/main.service';
-// Data Models
+/* Data Models */
 import { Recepie } from '../../models/recepieModel';
 
 @Component({
