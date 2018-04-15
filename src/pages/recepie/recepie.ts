@@ -20,12 +20,14 @@ export class RecepieView {
 	public mainState:any;
 	public categories = Categories;
 	public recommended:Recepie[];
+	public pageLoaded:boolean = false;
+	private loading:any;
 
 	constructor(
 		public navCtrl: NavController,
-		private _mainSrv: MainService
+		private _mainSrv: MainService,
 	) {
-		
+		this.pageLoaded = true;
 	}
 
 	ngOnInit(){
@@ -42,8 +44,16 @@ export class RecepieView {
 			return (
 				(recepie.category === selRecepie.category && recepie.id !== selRecepie.id) && 
 					recepie
-	
 			)
 		})
+	}
+
+	changePage(recepie){
+		this.pageLoaded = false;
+		this._mainSrv.selectRecepie(recepie);
+		this.navCtrl.push(RecepieView).then(() => {	
+			let index = 1;
+			this.navCtrl.remove(index);
+		});		
 	}
 }

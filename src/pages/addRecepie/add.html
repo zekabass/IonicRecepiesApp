@@ -7,27 +7,54 @@
 </ion-header>
 
 <ion-content padding>
-	<h1>Add new Recepie</h1>	
-	<form (ngSubmit)="submitAdd()">
+	<h1 class="centered"><ion-icon name="restaurant"></ion-icon> Add new Recepie</h1>	
+	<form  [formGroup]="addForm" (ngSubmit)="submitAdd()">
 		<ion-item>
-			<ion-label floating>Title</ion-label>
-			<ion-input type="text" [(ngModel)]="recepie.title" name="title"></ion-input>
+			<ion-label floating>Title</ion-label>		
+			<ion-input type="text" [(ngModel)]="recepie.title" name="title" formControlName="title"></ion-input>		
 		</ion-item>
+		<p class="form-error">
+			<span *ngIf="!addForm.controls.title.valid && addForm.controls.title.touched">
+				Title fild is required!
+			</span>	
+		</p>
+
 		<ion-item>
 			<ion-label floating>Category</ion-label>
-			<ion-select [(ngModel)]="selectedCategory" name="category">
+			<ion-select [(ngModel)]="selectedCategory" name="category" formControlName="category">
 				<ion-option *ngFor="let category of categories | keys" [value]="category">{{category}}</ion-option>
 			</ion-select>
 		</ion-item>
+		<p class="form-error">
+			<span *ngIf="!addForm.controls.category.valid && addForm.controls.category.touched">
+				Category fild is required!
+			</span>	
+		</p>
+
 		<ion-item>
 			<ion-label floating>Image Url</ion-label>
-			<ion-input type="text" [(ngModel)]="recepie.imageUrl" name="image"></ion-input>
+			<ion-input type="text" [(ngModel)]="recepie.imageUrl" name="image" formControlName="image"></ion-input>
 		</ion-item>
+		<p class="form-error">
+			<span *ngIf="!addForm.controls.image.valid && (addForm.controls.image.dirty || addForm.controls.image.touched)">
+				<span *ngIf="addForm.controls.image.errors.required">Image URL fild is required!</span>
+				<span *ngIf="addForm.controls.image.errors.pattern">Url is not valid!</span>
+			</span>
+			
+		</p>
+
 		<ion-item>
 			<ion-label floating>Description</ion-label>
-			<ion-textarea [(ngModel)]="recepie.description" name="description"></ion-textarea>
+			<ion-textarea [(ngModel)]="recepie.description" name="description" formControlName="description"></ion-textarea>
 		</ion-item>
+		<p class="form-error">
+			<span *ngIf="!addForm.controls.description.valid && (addForm.controls.description.dirty || addForm.controls.description.touched)">
+				<span *ngIf="addForm.controls.description.errors.minlength && !addForm.controls.description.errors.emptyString">Enter at least {{10 - recepie.description.length}} characters</span>
+				<span *ngIf="addForm.controls.description.errors.required || addForm.controls.description.errors.emptyString">Description fild is required!</span>	
+			</span>	
+		</p>
+
 		<br><br>
-		<button ion-button type="submit" block>Add Recepie</button>
+		<button ion-button class="submit-btn" type="submit" block>Add Recepie</button>
 	</form>	
 </ion-content>

@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
@@ -14,14 +15,18 @@ import { AddRecepie } from '../pages/addRecepie/add';
 import { StoreModule } from '@ngrx/store';
 import { ROOT_REDUCER } from './../reducers/wrapper';
 
+/* Components */
+import { Card } from '../app/components/card.component';
+
 /* Services */ 
 import { MainService } from '../services/main.service';
 
 /* Ngrx dev tool imports*/
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-// Pipes
+/* Pipes */ 
 import { FilterPipe } from '../pipes/filter.pipe';
+import { SortPipe } from '../pipes/sort.pipe';
 import { ObjKeys } from '../pipes/objKeys.pipe';
 
 
@@ -32,11 +37,15 @@ import { ObjKeys } from '../pipes/objKeys.pipe';
     RecepieView,
     AddRecepie,
     FilterPipe,
-    ObjKeys
+    SortPipe,
+    ObjKeys,
+    Card
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule,
+    ReactiveFormsModule,
     IonicModule.forRoot(MyApp),
     StoreModule.forRoot( ROOT_REDUCER ),
     StoreDevtoolsModule.instrument({

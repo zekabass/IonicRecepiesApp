@@ -1,26 +1,20 @@
 
 import { Injectable } from '@angular/core';
+import { AlertController, ToastController } from 'ionic-angular';
 
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/timeout';
-
+import { Observable } from "rxjs/Rx";
 // Data Models
 import { Recepie } from '../models/recepieModel';
-
+import { Categories } from '../models/categories';  
 // Store
 import { Store } from "@ngrx/store";
 import { AppState } from '../services/state';  
-
 // Actions
 import * as RecepieActions from "../actions/recepie.actions";
 import * as AppActions from "../actions/app.actions";
-
-import { Observable } from "rxjs/Rx";
-import { ToastController } from 'ionic-angular';
-
-import { Categories } from '../models/categories';  
-
 
 
 @Injectable()
@@ -34,7 +28,8 @@ export class MainService {
 	constructor(
 		public http: Http,  
 		private store: Store<AppState>, 
-		private toastCtrl: ToastController
+		private toastCtrl: ToastController,
+		private alertCtrl: AlertController
 	) { 
 		this.recepies$ = store.select<any>("recepies");
 		this.mainState$ = store.select<any>("mainState");
@@ -43,7 +38,6 @@ export class MainService {
 		})
 
 		this.initialize();
-
 	}
 
 	initialize() {
@@ -72,25 +66,43 @@ export class MainService {
 	}
 
 	deleteRecepie(recepie) {
-		this.store.dispatch(new RecepieActions.RemoveRecepie(recepie.id));
-		let toast = this.toastCtrl.create({
-			message: `${recepie.title} was deleted`,
-			duration: 3000,
-			position: 'bottom',
-			cssClass: 'danger'
+		this.doConfirm(recepie);
+	}
+
+	doConfirm(recepie) {
+		let alert = this.alertCtrl.create({
+			title: 'Delete Recipe?',
+			message: `Are you shure you want to delete ${recepie.title}?`,
+			buttons: [
+				{
+					text: 'Yes',
+					handler: () => {
+						this.store.dispatch(new RecepieActions.RemoveRecepie(recepie.id));
+						this.triggerToast( `${recepie.title} was deleted`, 'danger')
+					}
+				},
+				{
+					text: 'No',
+					handler: () => {}
+				}
+			]
 		});
-		toast.present();
+	
+		alert.present();
 	}
 
 	addNewRecepie(recepie) {
 		this.store.dispatch(new RecepieActions.AddRecepie(recepie));
+		this.triggerToast( `${recepie.title} Added`, 'success')
+	}
+
+	triggerToast(message, cssClass){
 		let toast = this.toastCtrl.create({
-			message: `${recepie.title} Added`,
+			message,
 			duration: 3000,
 			position: 'bottom',
-			cssClass: 'success'
+			cssClass
 		});
 		toast.present();
 	}
-
 }

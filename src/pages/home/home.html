@@ -11,25 +11,24 @@
 		<button ion-fab (click)="changePage('add-recepie')" ><ion-icon name="add"></ion-icon></button>	
 	</ion-fab>
 
+	<!-- <h1 class="centered app-title">Awesome Recipe App</h1> -->
+	<div class="app-title">
+		<img src="../../assets/imgs/chef.png" alt="">
+		<h2>Cooking LikeABoss</h2>
+	</div>
+	
 	<ion-searchbar [(ngModel)]="term"> </ion-searchbar>
 
-	<p *ngIf="term">{{(_mainSrv.recepies$ | async | filter:term).length}} recepies found </p>
+	<p *ngIf="term" class="search-info">
+		{{
+			(_mainSrv.recepies$ | async | filter:term).length  + 
+			((_mainSrv.recepies$ | async | filter:term).length !== 1 ? ' recipes' : ' recipe')
+		}} 
+		found
+	</p>
 
-	<ion-card *ngFor="let recepie of _mainSrv.recepies$ | async | filter:term as result">
-		<div class="card-wrapper" [style.backgroundImage]="'url(' + recepie.imageUrl + ')'">
-
-			<div class="background-over" ></div>
-
-			<ion-chip class="category-chip">
-				<ion-label>{{categories[recepie.category]}}</ion-label>
-			</ion-chip>
-
-			<div class="card-title clickable" (click)="changePage('recepie-view', recepie)">{{recepie.title}}</div>
-		
-			<ion-fab left bottom #fabDelete>
-					<button ion-fab class="fab-del" mini (click)="removeRecepie(recepie)"><ion-icon class="delete-icon clickable" name="ios-trash-outline"></ion-icon></button>	
-			</ion-fab>
-			
-		</div>	
+	<ion-card *ngFor="let recepie of _mainSrv.recepies$ | async | filter:term | sort">
+		<recipe-card [recepie]=recepie (onRemove)="removeRecepie($event)" (onPageChange)="changePage($event.page, $event.recepie)"></recipe-card>
 	</ion-card>
+	
 </ion-content>

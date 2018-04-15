@@ -25678,72 +25678,146 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+@font-face {
+  font-family: Open-sans;
+  src: url("../assets/fonts/OpenSansCondensed-Light.ttf");
+}
+
+* {
+  font-family: Open-sans;
+}
+
 ion-toast.success .toast-wrapper {
-  background: rgba(99, 198, 137, 0.9);
+  background: #84c160;
 }
 
 ion-toast.danger .toast-wrapper {
-  background: rgba(234, 84, 84, 0.9);
+  background: rgba(234, 84, 84, 0.95);
 }
 
-.card-background-page ion-card {
-  position: relative;
+.centered {
   text-align: center;
 }
 
-.card-background-page ion-chip {
+.toolbar-background {
+  background: #84c160;
+}
+
+.toolbar-title, .back-button {
+  color: #2b2b2b;
+}
+
+ion-card {
+  position: relative;
+  text-align: center;
+  margin-bottom: 1px;
+}
+
+ion-chip {
   position: absolute;
   margin: 0 auto;
   right: 10px;
   top: 10px;
 }
 
-.card-background-page ion-label {
-  color: #fff;
-  font-weight: bold;
-}
-
-.card-background-page .clickable {
+.clickable {
   cursor: pointer;
 }
 
-.card-background-page .card-wrapper {
+.card-wrapper {
   height: 200px;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-.card-background-page .background-over {
-  height: 200px;
-  background: #000;
-  opacity: 0.5;
+.card-wrapper ion-label {
+  color: #fff;
+  font-weight: bold;
 }
 
-.card-background-page .card-title {
+.background-over {
+  height: 200px;
+  background: #000;
+  opacity: 0.65;
+}
+
+.card-title {
   position: absolute;
   top: 45%;
   font-size: 18px;
   width: 100%;
-  font-weight: bold;
+  font-weight: normal;
+  color: #fff;
+  padding: 0px 20px;
+}
+
+.delete-icon {
   color: #fff;
 }
 
-.card-background-page .add-new-btn .fab {
-  background-color: #f4b953;
-}
-
-.card-background-page .delete-icon {
-  color: #fff;
-}
-
-.card-background-page .fab-del {
+.fab-del {
   background: rgba(40, 46, 52, 0.6);
 }
 
-.card-background-page .category-chip {
+.category-chip {
   background: rgba(132, 193, 96, 0.8);
+}
+
+.category-chip ion-label {
+  font-weight: normal;
+}
+
+.form-error {
+  color: red;
+  font-size: 11px;
+  padding: 0px 16px;
+  margin: 5px 0px;
+  min-height: 15px;
+}
+
+ion-select, ion-textarea, ion-input {
+  font-size: 13px;
+}
+
+.submit-btn {
+  background: #eda944;
+}
+
+.card-background-page .app-title {
+  text-align: center;
+  padding: 10px;
+}
+
+.card-background-page .app-title h2 {
+  margin-top: 0px;
+  color: #84C160;
+}
+
+.card-background-page .add-new-btn .fab {
+  background-color: #eda944;
+}
+
+.card-background-page .search-info {
+  padding: 0px 10px;
+  font-size: 13px;
+  color: #3d3d3d;
 }
 
 ion-slides {
   height: 200px;
+}
+
+.wrapper-slide {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.slide-zoom {
+  height: 100%;
+}
+
+.recommendations {
+  margin-top: 40px;
 }
