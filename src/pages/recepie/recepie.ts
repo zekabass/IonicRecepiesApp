@@ -21,7 +21,6 @@ export class RecepieView {
 	public categories = Categories;
 	public recommended:Recepie[];
 	public pageLoaded:boolean = false;
-	private loading:any;
 
 	constructor(
 		public navCtrl: NavController,

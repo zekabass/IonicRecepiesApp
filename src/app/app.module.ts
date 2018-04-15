@@ -16,7 +16,7 @@ import { StoreModule } from '@ngrx/store';
 import { ROOT_REDUCER } from './../reducers/wrapper';
 
 /* Components */
-import { Card } from '../app/components/card.component';
+import { Card } from '../components/card/card.component';
 
 /* Services */ 
 import { MainService } from '../services/main.service';
@@ -31,40 +31,40 @@ import { ObjKeys } from '../pipes/objKeys.pipe';
 
 
 @NgModule({
-  declarations: [
-    MyApp,
-    HomePage,
-    RecepieView,
-    AddRecepie,
-    FilterPipe,
-    SortPipe,
-    ObjKeys,
-    Card
-  ],
-  imports: [
-    BrowserModule,
-    HttpModule,
-    FormsModule,
-    ReactiveFormsModule,
-    IonicModule.forRoot(MyApp),
-    StoreModule.forRoot( ROOT_REDUCER ),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25, // Retains last 25 states
-      // logOnly: environment.production // Restrict extension to log-only mode
-    }),
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    HomePage,
-    RecepieView,
-    AddRecepie
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    MainService
-  ]
+	declarations: [
+		MyApp,
+		HomePage,
+		RecepieView,
+		AddRecepie,
+		FilterPipe,
+		SortPipe,
+		ObjKeys,
+		Card,
+	],
+	imports: [
+		BrowserModule,
+		HttpModule,
+		FormsModule,
+		ReactiveFormsModule,
+		IonicModule.forRoot(MyApp),
+		StoreModule.forRoot( ROOT_REDUCER ),
+		StoreDevtoolsModule.instrument({
+			maxAge: 25, // Retains last 25 states
+			// logOnly: environment.production // Restrict extension to log-only mode
+		}),
+	],
+	bootstrap: [IonicApp],
+	entryComponents: [
+		MyApp,
+		HomePage,
+		RecepieView,
+		AddRecepie
+	],
+	providers: [
+		StatusBar,
+		SplashScreen,
+		{provide: ErrorHandler, useClass: IonicErrorHandler},
+		MainService
+	]
 })
 export class AppModule {}

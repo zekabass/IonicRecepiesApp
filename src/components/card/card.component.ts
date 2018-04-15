@@ -8,7 +8,7 @@ import { Recepie } from '../../models/recepieModel';
 
 @Component({
     selector: 'recipe-card',
-    styleUrls: ['/src/app/components/card.css'],
+    styleUrls: ['/src/components/card/card.css'],
     templateUrl: 'card.html',
 })
 
