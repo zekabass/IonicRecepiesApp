@@ -1,4 +1,4 @@
-# Ionic Recepies App
+# Ionic Recipes App
 Ionic3/Angular5 mobile app.
 
 This app was created using 
