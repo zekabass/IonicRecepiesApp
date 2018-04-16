@@ -10,13 +10,12 @@ let InitialState:object = {
 }
 
 export function AppReducer(state = InitialState, action) {
-
     switch (action.type) {
+        /* Set selected recipe */
         case AppActions.SET_SELECTED:
             return { ...state, selectedRecepie:action.payload }
 
         default:
             return state
     }
-
 }

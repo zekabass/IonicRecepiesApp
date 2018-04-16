@@ -6,7 +6,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { Recepie } from '../../models/recepieModel';
 // Services
 import { MainService } from '../../services/main.service';
-/* Validators */
+/* Custom Validators */
 import {checkSpacesValidator} from '../../shared/check-spaces.directive';
 
 @Component({
@@ -14,14 +14,14 @@ import {checkSpacesValidator} from '../../shared/check-spaces.directive';
   	templateUrl: 'add.html'
 })
 
-
 export class AddRecepie {
+	/* Set Initial recipe object */
 	public recepie:Recepie = {
 		id:undefined,
 		category:undefined,
 		created: undefined,
 		description:undefined,
-		/* Added default img url for testing purpose */
+		/* Added default img url for the testing purposes */
 		imageUrl:'https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&h=350',
 		title:undefined
 	};
@@ -37,10 +37,11 @@ export class AddRecepie {
 	) {}
 
 	ngOnInit() {
+		/* Create form on init */
 		this.createForm();
-	
 	}
 
+	/* Method that creates Angular form */
 	createForm(){
 		this.addForm = this.formBuilder.group({
 			title: new FormControl('', [ 
@@ -62,16 +63,27 @@ export class AddRecepie {
 		});
 	}
 
+	/* Method that adds new recepie to the state on form submit */
 	submitAdd(){
+		/* Check if form is valid */
 		if (this.addForm.valid) {
-			this.recepie.id = this._mainSrv.recepiesCount + 1;
+			
+			this.recepie.id = this._mainSrv.recepiesCount + 1; //Not the best way to generate id. For testing purposes only!
 			this.recepie.category = this.getCategoryId(this.selectedCategory)
 			this.recepie.created = new Date();
 			this.recepie.title = this.recepie.title.trim();
+
+			/* Adding object to the state */
 			this._mainSrv.addNewRecepie(this.recepie);
+
+			/* Get back to the home page */
 			this.navCtrl.pop();
 		} else {
+
+			/* Form is not valid - trigger taost info */
 			this._mainSrv.triggerToast('Enter all requred data', 'danger');
+
+			/* Touch all fields so we can see errors msgs */
 			Object.keys(this.addForm.controls).forEach(field => { 
 				const control = this.addForm.get(field);
 				control.markAsTouched({ onlySelf: true });
@@ -79,7 +91,12 @@ export class AddRecepie {
 		}	
 	}
 
-	getCategoryId(category) {
+	/**
+    * Method returns category id number .
+    * @param category - The category enum object.
+	* @return category ID.
+    */
+	getCategoryId(category:string) {
 		return Number(this.categories[category])
 	}
 

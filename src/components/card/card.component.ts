@@ -27,11 +27,20 @@ export class Card {
 		public navCtrl: NavController, 
 		private _mainSrv: MainService
 	) {}
-    
+
+    /**
+    * Method triggers remove recepie event .
+    * @param recepie - The recepie object.
+    */
     removeRecepie(recepie) {
         this.onRemove.emit(recepie);
     }
 
+    /**
+    *  Method triggers remove recepie event .
+    * @param page - Page name.
+    * @param recepie - The recepie object.
+    */
     changePage(page, recepie){
         this.onPageChange.emit({page, recepie});
     }

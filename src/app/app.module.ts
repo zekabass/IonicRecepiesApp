@@ -6,28 +6,30 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpModule } from '@angular/http';
+import { StoreModule } from '@ngrx/store';
 
+/* Page components */
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { RecepieView } from '../pages/recepie/recepie';
 import { AddRecepie } from '../pages/addRecepie/add';
 
-import { StoreModule } from '@ngrx/store';
+/* Main reducer */
 import { ROOT_REDUCER } from './../reducers/wrapper';
 
-/* Components */
+/* Custom Components */
 import { Card } from '../components/card/card.component';
 
-/* Services */ 
+/* Custom Services */ 
 import { MainService } from '../services/main.service';
-
-/* Ngrx dev tool imports*/
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 /* Pipes */ 
 import { FilterPipe } from '../pipes/filter.pipe';
 import { SortPipe } from '../pipes/sort.pipe';
 import { ObjKeys } from '../pipes/objKeys.pipe';
+
+/* Ngrx dev tool imports*/
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 
 @NgModule({
