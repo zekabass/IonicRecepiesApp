@@ -6,8 +6,9 @@ https://ionicframework.com/pro/view
 
 Id of the app is 4083d92d
 
-This app was created using 
 
+
+This app was created using 
 https://ionicframework.com/ ,
 
 https://angular.io/,
