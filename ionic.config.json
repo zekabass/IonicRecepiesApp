@@ -1,6 +1,6 @@
 {
   "name": "RecepiesApp",
-  "app_id": "",
+  "app_id": "4083d92d",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
