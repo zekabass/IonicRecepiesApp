@@ -29590,11 +29590,14 @@ ion-icon::before {
 }
 
 .form-error {
-  color: #f53d3d;
   font-size: 11px;
   padding: 0px 16px;
   margin: 5px 0px;
   min-height: 15px;
+}
+
+.form-error span {
+  color: #f53d3d;
 }
 
 ion-select, ion-textarea, ion-input {
