@@ -16,6 +16,8 @@ https://ionicframework.com/ ,
 
 https://angular.io/,
 
+https://github.com/ngrx
+
 INFO: It's assumed that you have installed all prerequirements for this frameworks.
 If you didn't have installed it yet checkout links above.
 
