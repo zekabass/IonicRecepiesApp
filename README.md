@@ -4,11 +4,16 @@ Ionic3/Angular5 mobile app.
 You can se Live DEMO with
 https://ionicframework.com/pro/view
 
-Id of the app is 4083d92d
+Id of the app is *4083d92d*
+
+
+
+
 
 
 
 This app was created using 
+
 https://ionicframework.com/ ,
 
 https://angular.io/,
