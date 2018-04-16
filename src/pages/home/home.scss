@@ -12,8 +12,11 @@
 	
 	.add-new-btn .fab {
 		background-color:#eda944;
+		ion-icon {
+			color:#fff;
+		}	
 	}
-
+	
 	.search-info {
 		padding: 0px 10px;
 		font-size: 13px;

@@ -1,0 +1,4 @@
+#Mon Apr 16 11:35:51 CEST 2018
+base.0=/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
+renamed.0=classes.dex
+file.0=/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0/classes.dex

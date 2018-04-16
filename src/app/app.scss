@@ -23,6 +23,13 @@
 
 *{
     font-family:Open-sans;
+    color:#2b2b2b;
+}
+
+.scroll-content {
+    button span{
+        color: #fff;
+    }
 }
 
 ion-toast.success .toast-wrapper {

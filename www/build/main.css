@@ -25685,6 +25685,11 @@ ion-navbar.toolbar {
 
 * {
   font-family: Open-sans;
+  color: #2b2b2b;
+}
+
+.scroll-content button span {
+  color: #fff;
 }
 
 ion-toast.success .toast-wrapper {
@@ -25798,6 +25803,10 @@ ion-select, ion-textarea, ion-input {
   background-color: #eda944;
 }
 
+.card-background-page .add-new-btn .fab ion-icon {
+  color: #fff;
+}
+
 .card-background-page .search-info {
   padding: 0px 10px;
   font-size: 13px;
@@ -25821,4 +25830,10 @@ ion-slides {
 
 .recommendations {
   margin-top: 40px;
+}
+
+.recepie-info {
+  font-size: 12px;
+  margin-top: 0px;
+  margin-bottom: 5px;
 }

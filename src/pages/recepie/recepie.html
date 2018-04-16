@@ -12,9 +12,9 @@
 			<h1>{{mainState.selectedRecepie.title}}</h1>
 			<ion-grid >
 				<ion-row>
-					<ion-col col-6 class="header-text"><p><ion-icon ios="ios-calendar-outline" name="calendar"></ion-icon> {{mainState.selectedRecepie.created | date}}</p></ion-col>
-					<ion-col col-1><p>|</p></ion-col>
-					<ion-col col-5 class="header-text"><p> {{categories[mainState.selectedRecepie.category]}}</p></ion-col>
+					<ion-col col-6 class="header-text"><p class="recepie-info"><ion-icon ios="ios-calendar-outline" name="calendar"></ion-icon> {{mainState.selectedRecepie.created | date}}</p></ion-col>
+					<ion-col col-1><p class="recepie-info">|</p></ion-col>
+					<ion-col col-5 class="header-text "><p class="recepie-info"> {{categories[mainState.selectedRecepie.category]}}</p></ion-col>
 				</ion-row>
 			</ion-grid>
 
