@@ -1,3 +1,4 @@
+@import "../../theme/variables.scss";
 
 .card-background-page {
 	.app-title {
@@ -11,7 +12,7 @@
 	}
 	
 	.add-new-btn .fab {
-		background-color:#eda944;
+		background-color:color($colors, primary);
 		ion-icon {
 			color:#fff;
 		}	
