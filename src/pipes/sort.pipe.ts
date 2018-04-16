@@ -6,12 +6,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 export class SortPipe implements PipeTransform {
     /**
-    * Sort array of object by id. Descending
+    * Sort array of object by cate of cretion. Descending
     * @param recepies - Recepies array.
     */
     transform(recepies: any): any {
-        let sorted = recepies.sort((a,b)=> a.id - b.id);
-        /* Reverse array so we can get descending order */
-        return sorted.reverse();
+        return recepies.sort((a,b)=>{
+            if (a.created > b.created)  return -1;
+            else if(a.created < b.created) return  1;
+            else  return  0;
+        });
     }
 }

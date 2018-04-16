@@ -2,7 +2,7 @@
 export interface Recepie {  
     id:number,
     category:number,
-    created: Date,
+    created: string,
     description:string,
     imageUrl:string,
     title:string

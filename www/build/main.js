@@ -180,9 +180,9 @@ var AddRecepie = /** @class */ (function () {
         var _this = this;
         /* Check if form is valid */
         if (this.addForm.valid) {
-            this.recepie.id = this._mainSrv.recepiesCount + 1; //Not the best way to generate id. For testing purposes only!
+            this.recepie.id = this._mainSrv.recepiesCount + Math.floor(Math.random() * 100); //Not the best way to generate id. For testing purposes only!
             this.recepie.category = this.getCategoryId(this.selectedCategory);
-            this.recepie.created = new Date();
+            this.recepie.created = new Date().toISOString();
             this.recepie.title = this.recepie.title.trim();
             /* Adding object to the state */
             this._mainSrv.addNewRecepie(this.recepie);
@@ -211,11 +211,10 @@ var AddRecepie = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'add-recepie',template:/*ion-inline-start:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/addRecepie/add.html"*/'<ion-header>\n	<ion-navbar>\n		<ion-title>\n			Create\n		</ion-title>\n	</ion-navbar>\n</ion-header>\n\n<ion-content padding>\n	<h1 class="centered"><ion-icon name="restaurant"></ion-icon> Add new Recepie</h1>	\n	<form  [formGroup]="addForm" (ngSubmit)="submitAdd()">\n		<ion-item>\n			<ion-label floating>Title</ion-label>		\n			<ion-input type="text" [(ngModel)]="recepie.title" name="title" formControlName="title"></ion-input>		\n		</ion-item>\n		<p class="form-error">\n			<span *ngIf="!addForm.controls.title.valid && addForm.controls.title.touched">\n				Title fild is required!\n			</span>	\n		</p>\n\n		<ion-item>\n			<ion-label floating>Category</ion-label>\n			<ion-select [(ngModel)]="selectedCategory" name="category" formControlName="category">\n				<ion-option *ngFor="let category of categories | keys" [value]="category">{{category}}</ion-option>\n			</ion-select>\n		</ion-item>\n		<p class="form-error">\n			<span *ngIf="!addForm.controls.category.valid && addForm.controls.category.touched">\n				Category fild is required!\n			</span>	\n		</p>\n\n		<ion-item>\n			<ion-label floating>Image Url</ion-label>\n			<ion-input type="text" [(ngModel)]="recepie.imageUrl" name="image" formControlName="image"></ion-input>\n		</ion-item>\n		<p class="form-error">\n			<span *ngIf="!addForm.controls.image.valid && (addForm.controls.image.dirty || addForm.controls.image.touched)">\n				<span *ngIf="addForm.controls.image.errors.required">Image URL fild is required!</span>\n				<span *ngIf="addForm.controls.image.errors.pattern">Url is not valid!</span>\n			</span>\n			\n		</p>\n\n		<ion-item>\n			<ion-label floating>Description</ion-label>\n			<ion-textarea [(ngModel)]="recepie.description" name="description" formControlName="description"></ion-textarea>\n		</ion-item>\n		<p class="form-error">\n			<span *ngIf="!addForm.controls.description.valid && (addForm.controls.description.dirty || addForm.controls.description.touched)">\n				<span *ngIf="addForm.controls.description.errors.minlength && !addForm.controls.description.errors.emptyString">Enter at least {{10 - recepie.description.length}} characters</span>\n				<span *ngIf="addForm.controls.description.errors.required || addForm.controls.description.errors.emptyString">Description fild is required!</span>	\n			</span>	\n		</p>\n\n		<button ion-button class="submit-btn" type="submit" block>Add Recepie</button>\n	</form>	\n</ion-content>\n'/*ion-inline-end:"/home/dejan/DejanZec/IonicTest/IonicRecepiesApp/src/pages/addRecepie/add.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_3__services_main_service__["a" /* MainService */],
-            __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__services_main_service__["a" /* MainService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_main_service__["a" /* MainService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */]) === "function" && _c || Object])
     ], AddRecepie);
     return AddRecepie;
+    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=add.js.map
@@ -774,13 +773,18 @@ var SortPipe = /** @class */ (function () {
     function SortPipe() {
     }
     /**
-    * Sort array of object by id. Descending
+    * Sort array of object by cate of cretion. Descending
     * @param recepies - Recepies array.
     */
     SortPipe.prototype.transform = function (recepies) {
-        var sorted = recepies.sort(function (a, b) { return a.id - b.id; });
-        /* Reverse array so we can get descending order */
-        return sorted.reverse();
+        return recepies.sort(function (a, b) {
+            if (a.created > b.created)
+                return -1;
+            else if (a.created < b.created)
+                return 1;
+            else
+                return 0;
+        });
     };
     SortPipe = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["S" /* Pipe */])({

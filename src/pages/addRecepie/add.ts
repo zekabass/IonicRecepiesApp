@@ -68,9 +68,9 @@ export class AddRecepie {
 		/* Check if form is valid */
 		if (this.addForm.valid) {
 			
-			this.recepie.id = this._mainSrv.recepiesCount + 1; //Not the best way to generate id. For testing purposes only!
+			this.recepie.id = this._mainSrv.recepiesCount +  Math.floor(Math.random() * 100); //Not the best way to generate id. For testing purposes only!
 			this.recepie.category = this.getCategoryId(this.selectedCategory)
-			this.recepie.created = new Date();
+			this.recepie.created = new Date().toISOString();
 			this.recepie.title = this.recepie.title.trim();
 
 			/* Adding object to the state */
