@@ -1,7 +1,7 @@
 # Ionic Recipes App
 Ionic3/Angular5 mobile app.
 
-You can se Live DEMO with
+You can see Live DEMO with
 https://ionicframework.com/pro/view
 
 Id of the app is **4083d92d**
