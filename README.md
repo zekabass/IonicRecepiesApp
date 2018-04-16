@@ -1,4 +1,4 @@
-# IonicRecepiesApp
+# Ionic Recepies App
 Ionic3/Angular5 mobile app.
 
 This app was created using 
